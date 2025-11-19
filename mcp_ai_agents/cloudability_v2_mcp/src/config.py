@@ -53,15 +53,24 @@ class Config:
     MCP_VERSION: str = "2024-11-05"
     
     # Valid dimensions for amortized costs (based on API documentation and testing)
-    # Core dimensions that work with amortized costs
+    # IMPORTANT: Not all dimensions work with the amortized costs endpoint.
+    # Only these "Core Dimensions" are supported by the /v3/reporting/cost/run endpoint
+    # when using total_amortized_cost metric.
+    # 
+    # Dimensions that DO NOT work with amortized costs (will return 422 errors):
+    # - cluster_name, namespace, pod_name, container_name (K8s dimensions)
+    # - resource_identifier, usage_type, operation, availability_zone (resource dimensions)
+    # - lease_type, transaction_type, usage_family, billing_period, cost_category (cost allocation)
+    #
+    # These dimensions may work with other metrics (like total_cost) but not with amortized costs.
     VALID_AMORTIZED_DIMENSIONS = [
-        "vendor",
-        "service",
-        "service_name",
-        "enhanced_service_name",
-        "account_id",
-        "region",
-        "date"
+        "vendor",                    # Cloud provider (AWS, Azure, GCP) - ✅ Works
+        "service",                   # Service name (AmazonEC2, etc.) - ✅ Works
+        "service_name",              # Alternative service name - ✅ Works
+        "enhanced_service_name",     # Enhanced service name with details - ✅ Works
+        "account_id",                # Cloud account identifier - ✅ Works
+        "region",                    # Geographic region (us-east-1, etc.) - ✅ Works
+        "date"                       # Date dimension for time-series - ✅ Works
     ]
     
     @classmethod

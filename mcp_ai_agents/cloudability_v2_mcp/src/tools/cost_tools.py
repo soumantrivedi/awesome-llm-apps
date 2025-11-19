@@ -21,7 +21,9 @@ class GetAmortizedCostsTool(CloudabilityTool):
             "Get amortized cost data from TrueCost Explorer. "
             "Supports validated dimensions that work with amortized costs API. "
             "Valid dimensions: vendor, service, service_name, enhanced_service_name, "
-            "account_id, region, date. Supports JSON and CSV export formats."
+            "account_id, region, date. "
+            "Note: K8s dimensions (cluster_name, namespace) do NOT work with amortized costs. "
+            "Supports JSON and CSV export formats."
         )
     
     def get_input_schema(self) -> dict:
@@ -89,12 +91,25 @@ class GetAmortizedCostsTool(CloudabilityTool):
         if dimensions:
             invalid_dims = [d for d in dimensions if d not in Config.VALID_AMORTIZED_DIMENSIONS]
             if invalid_dims:
+                # Provide helpful error message
+                k8s_dims = ["cluster_name", "namespace", "pod_name", "container_name"]
+                is_k8s_dim = any(d in invalid_dims for d in k8s_dims)
+                
+                error_msg = (
+                    f"Invalid dimensions for amortized costs: {invalid_dims}. "
+                    f"Valid dimensions: {', '.join(Config.VALID_AMORTIZED_DIMENSIONS)}"
+                )
+                
+                if is_k8s_dim:
+                    error_msg += (
+                        "\n\nNote: Kubernetes dimensions (cluster_name, namespace, pod_name, container_name) "
+                        "are NOT supported by the amortized costs API endpoint. "
+                        "These dimensions will return 422 errors from the Cloudability API."
+                    )
+                
                 return {
                     "success": False,
-                    "error": (
-                        f"Invalid dimensions for amortized costs: {invalid_dims}. "
-                        f"Valid dimensions: {Config.VALID_AMORTIZED_DIMENSIONS}"
-                    )
+                    "error": error_msg
                 }
         
         result = api.get_amortized_costs(

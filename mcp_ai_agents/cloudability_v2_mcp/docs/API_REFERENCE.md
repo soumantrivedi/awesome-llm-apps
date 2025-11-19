@@ -162,20 +162,44 @@ Get amortized cost data from TrueCost Explorer with validated dimensions.
 
 ## Dimension Validation
 
-The `get_amortized_costs` tool validates dimensions before making API calls. Only dimensions that are known to work with the Cloudability amortized costs API are accepted:
+The `get_amortized_costs` tool validates dimensions before making API calls. Only dimensions that are known to work with the Cloudability amortized costs API are accepted.
 
-- ✅ `vendor`
-- ✅ `service`
-- ✅ `service_name`
-- ✅ `enhanced_service_name`
-- ✅ `account_id`
-- ✅ `region`
-- ✅ `date`
+### ✅ Valid Dimensions for Amortized Costs
 
-- ❌ `cluster_name` (not supported for amortized costs)
-- ❌ `namespace` (not supported for amortized costs)
-- ❌ `pod_name` (not supported for amortized costs)
-- ❌ `container_name` (not supported for amortized costs)
+These are the **Core Dimensions** that work with the `/v3/reporting/cost/run` endpoint when using `total_amortized_cost` metric:
+
+- `vendor` - Cloud provider (AWS, Azure, GCP)
+- `service` - Service name (AmazonEC2, Compute Engine)
+- `service_name` - Alternative service name
+- `enhanced_service_name` - Enhanced service name with details
+- `account_id` - Cloud account identifier
+- `region` - Geographic region (us-east-1, eu-west-1)
+- `date` - Date dimension for time-series analysis
+
+### ❌ Dimensions NOT Supported for Amortized Costs
+
+The following dimensions **do NOT work** with the amortized costs endpoint and will return 422 errors:
+
+**Kubernetes/Container Dimensions:**
+- `cluster_name` - ❌ Not supported (returns 422 error)
+- `namespace` - ❌ Not supported (returns 422 error)
+- `pod_name` - ❌ Not supported
+- `container_name` - ❌ Not supported
+
+**Resource-Level Dimensions:**
+- `resource_identifier` - ❌ Not supported
+- `usage_type` - ❌ Not supported
+- `operation` - ❌ Not supported
+- `availability_zone` - ❌ Not supported
+
+**Cost Allocation Dimensions:**
+- `lease_type` - ❌ Not supported
+- `transaction_type` - ❌ Not supported
+- `usage_family` - ❌ Not supported
+- `billing_period` - ❌ Not supported
+- `cost_category` - ❌ Not supported
+
+**Note:** While these dimensions exist in the Cloudability API v3, they are not supported by the amortized costs endpoint specifically. They may work with other metrics (like `total_cost`) but not with `total_amortized_cost`.
 
 ## Filter Operators
 
