@@ -67,7 +67,11 @@ test:
 
 test-examples:
 	@echo "Running example scripts..."
-	@python3 examples/test_mcp_server.py
+	@if [ ! -d "venv" ]; then \
+		echo "✗ Virtual environment not found. Run 'make install' first."; \
+		exit 1; \
+	fi
+	@./venv/bin/python3 examples/test_mcp_server.py || (echo "⚠️  Note: Tests require Cloudability credentials. Set environment variables or use .env file." && exit 1)
 	@echo "✓ Examples completed"
 
 docs:

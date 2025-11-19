@@ -9,11 +9,12 @@ import os
 from datetime import datetime, timedelta
 import json
 
-# Add src to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+# Add project root to path so we can import from src package
+project_root = os.path.join(os.path.dirname(__file__), '..')
+sys.path.insert(0, project_root)
 
-from main import CloudabilityV2MCPServer
-from config import Config
+from src.main import CloudabilityV2MCPServer
+from src.config import Config
 
 
 class TestResults:
