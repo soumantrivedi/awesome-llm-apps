@@ -104,6 +104,7 @@ clean:
 	rm -rf .pytest_cache 2>/dev/null || true
 	rm -rf .coverage 2>/dev/null || true
 	rm -rf htmlcov 2>/dev/null || true
+	rm -rf generated-contents 2>/dev/null || true
 	rm -f *.csv 2>/dev/null || true
 	rm -f *.json 2>/dev/null || true
 	@echo "✓ Clean completed"
@@ -116,5 +117,7 @@ verify:
 	fi
 	@./venv/bin/python3 -c "import sys; sys.path.insert(0, '.'); from src.main import CloudabilityV2MCPServer; print('✓ Import successful')" || (echo "✗ Import failed" && exit 1)
 	@./venv/bin/python3 -c "import sys; sys.path.insert(0, '.'); from src import tools; from src.framework.tool_base import get_registry; registry = get_registry(); tool_list = registry.list_tools(); print(f'✓ Found {len(tool_list)} registered tools: {', '.join(tool_list)}')" || (echo "✗ Tool registry check failed" && exit 1)
-	@echo "✓ Installation verified (server initialization requires credentials)"
+	@echo "Running test suite to verify all tools work correctly..."
+	@./venv/bin/python3 tests/test_tools.py || (echo "✗ Tests failed" && exit 1)
+	@echo "✓ Installation verified - all tests passed"
 

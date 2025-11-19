@@ -1,0 +1,2219 @@
+{
+  "summary": {
+    "total_tests": 101,
+    "passed": 12,
+    "failed": 89,
+    "errors_4xx": 88,
+    "errors_5xx": 0,
+    "success_rate": 11.881188118811881
+  },
+  "working_combinations": [
+    {
+      "tool": "list_views",
+      "params": {},
+      "success": true,
+      "error": null,
+      "status_code": null,
+      "timestamp": "2025-11-19T15:23:12.328190"
+    },
+    {
+      "tool": "list_views",
+      "params": {
+        "limit": 10
+      },
+      "success": true,
+      "error": null,
+      "status_code": null,
+      "timestamp": "2025-11-19T15:23:12.878906"
+    },
+    {
+      "tool": "list_views",
+      "params": {
+        "limit": 50
+      },
+      "success": true,
+      "error": null,
+      "status_code": null,
+      "timestamp": "2025-11-19T15:23:13.415050"
+    },
+    {
+      "tool": "list_views",
+      "params": {
+        "limit": 100
+      },
+      "success": true,
+      "error": null,
+      "status_code": null,
+      "timestamp": "2025-11-19T15:23:13.953542"
+    },
+    {
+      "tool": "list_views",
+      "params": {
+        "limit": 250
+      },
+      "success": true,
+      "error": null,
+      "status_code": null,
+      "timestamp": "2025-11-19T15:23:14.497174"
+    },
+    {
+      "tool": "list_views",
+      "params": {
+        "offset": 0
+      },
+      "success": true,
+      "error": null,
+      "status_code": null,
+      "timestamp": "2025-11-19T15:23:15.033392"
+    },
+    {
+      "tool": "list_views",
+      "params": {
+        "offset": 10
+      },
+      "success": true,
+      "error": null,
+      "status_code": null,
+      "timestamp": "2025-11-19T15:23:15.572035"
+    },
+    {
+      "tool": "list_views",
+      "params": {
+        "limit": 50,
+        "offset": 0
+      },
+      "success": true,
+      "error": null,
+      "status_code": null,
+      "timestamp": "2025-11-19T15:23:16.111297"
+    },
+    {
+      "tool": "list_views",
+      "params": {
+        "limit": 100,
+        "offset": 50
+      },
+      "success": true,
+      "error": null,
+      "status_code": null,
+      "timestamp": "2025-11-19T15:23:16.695789"
+    },
+    {
+      "tool": "list_budgets",
+      "params": {},
+      "success": true,
+      "error": null,
+      "status_code": null,
+      "timestamp": "2025-11-19T15:23:17.346146"
+    },
+    {
+      "tool": "list_budgets",
+      "params": {},
+      "success": true,
+      "error": null,
+      "status_code": null,
+      "timestamp": "2025-11-19T15:24:22.837784"
+    },
+    {
+      "tool": "list_views",
+      "params": {},
+      "success": true,
+      "error": null,
+      "status_code": null,
+      "timestamp": "2025-11-19T15:24:23.358896"
+    }
+  ],
+  "failing_combinations": [
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ]
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:23:18.489033"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ]
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:19.108184"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service",
+          "vendor"
+        ]
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service%2Cvendor&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:23:19.646629"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ]
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:23:20.200097"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ]
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:20.794574"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service",
+          "vendor"
+        ]
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=service%2Cvendor&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:23:21.377542"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-10-20",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ]
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:23:21.948491"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-10-20",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ]
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:22.812760"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-10-20",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service",
+          "vendor"
+        ]
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service%2Cvendor&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:23:23.348278"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-09-20",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ]
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-09-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:23:23.896695"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-09-20",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ]
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-09-20&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:24.523215"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-09-20",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service",
+          "vendor"
+        ]
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-09-20&end=2025-11-19&dimensions=service%2Cvendor&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:23:25.059557"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-08-21",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ]
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-08-21&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:23:25.617231"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-08-21",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ]
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-08-21&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:26.190944"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-08-21",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service",
+          "vendor"
+        ]
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-08-21&end=2025-11-19&dimensions=service%2Cvendor&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:23:26.727825"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ],
+        "filters": {
+          "product_id": "K8s"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly&filter=product_id%3D%3DK8s",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:23:27.265300"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ],
+        "filters": {
+          "vendor": "AWS"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly&filter=vendor%3D%3DAWS",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:23:27.807903"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ],
+        "filters": {
+          "vendor": "Azure"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly&filter=vendor%3D%3DAzure",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:23:28.378706"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ],
+        "filters": {
+          "product_id": "K8s"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly&filter=product_id%3D%3DK8s",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:28.958202"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ],
+        "filters": {
+          "vendor": "AWS"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly&filter=vendor%3D%3DAWS",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:29.532243"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ],
+        "filters": {
+          "vendor": "Azure"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly&filter=vendor%3D%3DAzure",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:30.123420"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service",
+          "vendor"
+        ],
+        "filters": {
+          "product_id": "K8s"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service%2Cvendor&metrics=total_amortized_cost&granularity=monthly&filter=product_id%3D%3DK8s",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:23:30.674345"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service",
+          "vendor"
+        ],
+        "filters": {
+          "vendor": "AWS"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service%2Cvendor&metrics=total_amortized_cost&granularity=monthly&filter=vendor%3D%3DAWS",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:23:31.235211"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service",
+          "vendor"
+        ],
+        "filters": {
+          "vendor": "Azure"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service%2Cvendor&metrics=total_amortized_cost&granularity=monthly&filter=vendor%3D%3DAzure",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:23:31.771268"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ],
+        "filters": {
+          "product_id": "K8s"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly&filter=product_id%3D%3DK8s",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:23:32.305301"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ],
+        "filters": {
+          "vendor": "AWS"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly&filter=vendor%3D%3DAWS",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:23:32.849721"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ],
+        "filters": {
+          "vendor": "Azure"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly&filter=vendor%3D%3DAzure",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:23:33.438760"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ],
+        "filters": {
+          "product_id": "K8s"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly&filter=product_id%3D%3DK8s",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:34.005335"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ],
+        "filters": {
+          "vendor": "AWS"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly&filter=vendor%3D%3DAWS",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:34.577653"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ],
+        "filters": {
+          "vendor": "Azure"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly&filter=vendor%3D%3DAzure",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:35.140728"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-12170-Internal Engagement Products"
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:36.810583"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-14069-Client Data and Document Repository"
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298466/data",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:37.908859"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-10714-KnowDocs"
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298468/data",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:39.005173"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-12170-Internal Engagement Products",
+        "limit": 10
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data?limit=10",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:40.148440"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-12170-Internal Engagement Products",
+        "limit": 50
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data?limit=50",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:41.175830"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-12170-Internal Engagement Products",
+        "limit": 100
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data?limit=100",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:42.238112"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-14069-Client Data and Document Repository",
+        "limit": 10
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298466/data?limit=10",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:43.333797"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-14069-Client Data and Document Repository",
+        "limit": 50
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298466/data?limit=50",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:44.440275"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-14069-Client Data and Document Repository",
+        "limit": 100
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298466/data?limit=100",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:45.486822"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-10714-KnowDocs",
+        "limit": 10
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298468/data?limit=10",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:46.516685"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-10714-KnowDocs",
+        "limit": 50
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298468/data?limit=50",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:47.644485"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-10714-KnowDocs",
+        "limit": 100
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298468/data?limit=100",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:48.796662"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "view_name": "Product-12170-Internal Engagement Products"
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data?start_date=2025-11-12&end_date=2025-11-19",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:50.083318"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "view_name": "Product-12170-Internal Engagement Products"
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data?start_date=2025-11-05&end_date=2025-11-19",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:51.161717"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "start_date": "2025-10-20",
+        "end_date": "2025-11-19",
+        "view_name": "Product-12170-Internal Engagement Products"
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data?start_date=2025-10-20&end_date=2025-11-19",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:52.207592"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "view_name": "Product-14069-Client Data and Document Repository"
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298466/data?start_date=2025-11-12&end_date=2025-11-19",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:53.265142"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "view_name": "Product-14069-Client Data and Document Repository"
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298466/data?start_date=2025-11-05&end_date=2025-11-19",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:54.332260"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "start_date": "2025-10-20",
+        "end_date": "2025-11-19",
+        "view_name": "Product-14069-Client Data and Document Repository"
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298466/data?start_date=2025-10-20&end_date=2025-11-19",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:55.397766"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-12170-Internal Engagement Products",
+        "export_format": "json"
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:56.466068"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-12170-Internal Engagement Products",
+        "export_format": "csv"
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:57.746844"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-14069-Client Data and Document Repository",
+        "export_format": "json"
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298466/data",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:58.820432"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-14069-Client Data and Document Repository",
+        "export_format": "csv"
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298466/data",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:23:59.965705"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19"
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service&metrics=total_amortized_cost",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:00.488635"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19"
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=service&metrics=total_amortized_cost",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:01.043489"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-10-20",
+        "end_date": "2025-11-19"
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:01.614267"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-09-20",
+        "end_date": "2025-11-19"
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-09-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:02.139506"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-08-21",
+        "end_date": "2025-11-19"
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-08-21&end=2025-11-19&dimensions=service&metrics=total_amortized_cost",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:02.688368"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "filters": {
+          "product_id": "K8s"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=product_id%3D%3DK8s",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:03.232064"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "AWS"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DAWS",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:03.782998"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "Azure"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DAzure",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:04.323658"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "GCP"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DGCP",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:04.910360"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "filters": {
+          "product_id": "K8s"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=product_id%3D%3DK8s",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:05.456683"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "AWS"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DAWS",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:05.990018"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "Azure"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DAzure",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:06.546760"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "GCP"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DGCP",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:07.091731"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-10-20",
+        "end_date": "2025-11-19",
+        "filters": {
+          "product_id": "K8s"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=product_id%3D%3DK8s",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:07.627726"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-10-20",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "AWS"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DAWS",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:08.174230"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-10-20",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "Azure"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DAzure",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:08.729183"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-10-20",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "GCP"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DGCP",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:09.273851"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-09-20",
+        "end_date": "2025-11-19",
+        "filters": {
+          "product_id": "K8s"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-09-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=product_id%3D%3DK8s",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:09.823843"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-09-20",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "AWS"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-09-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DAWS",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:10.345668"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-09-20",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "Azure"
+        }
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-09-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DAzure",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:10.899564"
+    },
+    {
+      "tool": "analyze_container_cost_allocation",
+      "params": {},
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=cluster_name%2Cnamespace&metrics=total_cost&filter=product_id%3D%3DK8s",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:11.419277"
+    },
+    {
+      "tool": "create_budget",
+      "params": {
+        "name": "test",
+        "basis": "test",
+        "view_id": "Product-12170-Internal Engagement Products",
+        "months": []
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/budgets",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:12.529253"
+    },
+    {
+      "tool": "explore_tags",
+      "params": {
+        "tag_key": "test"
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=tag%3Atest%2Cvendor%2Cservice&metrics=total_amortized_cost&filter=tag%3Atest%3D%3D%2A",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:13.062770"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-19",
+        "end_date": "2025-11-19"
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-19&end=2025-11-19&dimensions=service&metrics=total_amortized_cost",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:13.611320"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {},
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:14.147670"
+    },
+    {
+      "tool": "get_anomaly_detection",
+      "params": {},
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=vendor%2Cservice%2Caccount_id&metrics=total_amortized_cost&anomaly_detection=true&min_change_percent=10.0",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:14.688407"
+    },
+    {
+      "tool": "get_available_measures",
+      "params": {},
+      "success": false,
+      "error": "4xx Client Error: 404 Client Error: Not Found for url: https://api.cloudability.com/v3/reporting/measures",
+      "status_code": 404,
+      "timestamp": "2025-11-19T15:24:15.208944"
+    },
+    {
+      "tool": "get_budget",
+      "params": {
+        "budget_id": "test"
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/budgets/test",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:15.772544"
+    },
+    {
+      "tool": "get_container_costs",
+      "params": {},
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=cluster_name%2Cnamespace&metrics=total_cost&filter=product_id%3D%3DK8s",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:16.307701"
+    },
+    {
+      "tool": "get_container_resource_usage",
+      "params": {},
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&metrics=cpu%2Freserved%2Cmemory%2Freserved_rss",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:16.948991"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-12170-Internal Engagement Products"
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:24:18.656876"
+    },
+    {
+      "tool": "get_cost_report_with_filters",
+      "params": {
+        "view_name": "Product-12170-Internal Engagement Products"
+      },
+      "success": false,
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data",
+      "status_code": 400,
+      "timestamp": "2025-11-19T15:24:20.255099"
+    },
+    {
+      "tool": "get_filter_operators",
+      "params": {},
+      "success": false,
+      "error": "4xx Client Error: 404 Client Error: Not Found for url: https://api.cloudability.com/v3/reporting/operators",
+      "status_code": 404,
+      "timestamp": "2025-11-19T15:24:20.759910"
+    },
+    {
+      "tool": "get_spending_estimate",
+      "params": {},
+      "success": false,
+      "error": "4xx Client Error: 404 Client Error: Not Found for url: https://api.cloudability.com/v3/forecast/estimate?view_id=0&basis=cash",
+      "status_code": 404,
+      "timestamp": "2025-11-19T15:24:21.262035"
+    },
+    {
+      "tool": "get_spending_forecast",
+      "params": {},
+      "success": false,
+      "error": "4xx Client Error: 404 Client Error: Not Found for url: https://api.cloudability.com/v3/forecast/forecast?view_id=0&basis=cash&months_back=6&months_forward=12&use_current_estimate=True&remove_one_time_charges=True",
+      "status_code": 404,
+      "timestamp": "2025-11-19T15:24:21.762372"
+    },
+    {
+      "tool": "list_available_tags",
+      "params": {},
+      "success": false,
+      "error": "404 Client Error: Not Found for url: https://api.cloudability.com/v3/reporting/dimensions?dimension_type=tag",
+      "status_code": null,
+      "timestamp": "2025-11-19T15:24:22.256713"
+    },
+    {
+      "tool": "update_budget",
+      "params": {
+        "budget_id": "test"
+      },
+      "success": false,
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/budgets/test",
+      "status_code": 422,
+      "timestamp": "2025-11-19T15:24:24.187831"
+    }
+  ],
+  "error_details": {
+    "get_amortized_costs_5016433441264787703": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ]
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422
+    },
+    "get_amortized_costs_3012061981837009797": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ]
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 400
+    },
+    "get_amortized_costs_-8057022031799507424": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service",
+          "vendor"
+        ]
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service%2Cvendor&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422
+    },
+    "get_amortized_costs_-8824106977956662186": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ]
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422
+    },
+    "get_amortized_costs_5747500015235935504": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ]
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 400
+    },
+    "get_amortized_costs_2364803135743728009": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service",
+          "vendor"
+        ]
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=service%2Cvendor&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422
+    },
+    "get_amortized_costs_7049749749964968287": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-10-20",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ]
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422
+    },
+    "get_amortized_costs_4742408019662975629": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-10-20",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ]
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 400
+    },
+    "get_amortized_costs_3166921922783484393": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-10-20",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service",
+          "vendor"
+        ]
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service%2Cvendor&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422
+    },
+    "get_amortized_costs_4982542339051468106": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-09-20",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ]
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-09-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422
+    },
+    "get_amortized_costs_7964290803150594902": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-09-20",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ]
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-09-20&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 400
+    },
+    "get_amortized_costs_-8477317012792970430": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-09-20",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service",
+          "vendor"
+        ]
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-09-20&end=2025-11-19&dimensions=service%2Cvendor&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422
+    },
+    "get_amortized_costs_8298846252607488517": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-08-21",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ]
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-08-21&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422
+    },
+    "get_amortized_costs_-8832600000285540699": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-08-21",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ]
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-08-21&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 400
+    },
+    "get_amortized_costs_2353300013211671849": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-08-21",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service",
+          "vendor"
+        ]
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-08-21&end=2025-11-19&dimensions=service%2Cvendor&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422
+    },
+    "get_amortized_costs_-6432336176817547664": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ],
+        "filters": {
+          "product_id": "K8s"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly&filter=product_id%3D%3DK8s",
+      "status_code": 422
+    },
+    "get_amortized_costs_-4245249741504245890": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ],
+        "filters": {
+          "vendor": "AWS"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly&filter=vendor%3D%3DAWS",
+      "status_code": 422
+    },
+    "get_amortized_costs_7637132061618581733": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ],
+        "filters": {
+          "vendor": "Azure"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly&filter=vendor%3D%3DAzure",
+      "status_code": 422
+    },
+    "get_amortized_costs_1993839542704909546": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ],
+        "filters": {
+          "product_id": "K8s"
+        }
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly&filter=product_id%3D%3DK8s",
+      "status_code": 400
+    },
+    "get_amortized_costs_6630382537459989433": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ],
+        "filters": {
+          "vendor": "AWS"
+        }
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly&filter=vendor%3D%3DAWS",
+      "status_code": 400
+    },
+    "get_amortized_costs_-7029003784623875100": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ],
+        "filters": {
+          "vendor": "Azure"
+        }
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly&filter=vendor%3D%3DAzure",
+      "status_code": 400
+    },
+    "get_amortized_costs_-4497036707940154933": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service",
+          "vendor"
+        ],
+        "filters": {
+          "product_id": "K8s"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service%2Cvendor&metrics=total_amortized_cost&granularity=monthly&filter=product_id%3D%3DK8s",
+      "status_code": 422
+    },
+    "get_amortized_costs_7270329559913646717": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service",
+          "vendor"
+        ],
+        "filters": {
+          "vendor": "AWS"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service%2Cvendor&metrics=total_amortized_cost&granularity=monthly&filter=vendor%3D%3DAWS",
+      "status_code": 422
+    },
+    "get_amortized_costs_487906127215964916": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service",
+          "vendor"
+        ],
+        "filters": {
+          "vendor": "Azure"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service%2Cvendor&metrics=total_amortized_cost&granularity=monthly&filter=vendor%3D%3DAzure",
+      "status_code": 422
+    },
+    "get_amortized_costs_4925085035478532084": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ],
+        "filters": {
+          "product_id": "K8s"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly&filter=product_id%3D%3DK8s",
+      "status_code": 422
+    },
+    "get_amortized_costs_-1740273677572264776": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ],
+        "filters": {
+          "vendor": "AWS"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly&filter=vendor%3D%3DAWS",
+      "status_code": 422
+    },
+    "get_amortized_costs_6962105142825739121": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "service"
+        ],
+        "filters": {
+          "vendor": "Azure"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly&filter=vendor%3D%3DAzure",
+      "status_code": 422
+    },
+    "get_amortized_costs_1772249375666647547": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ],
+        "filters": {
+          "product_id": "K8s"
+        }
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly&filter=product_id%3D%3DK8s",
+      "status_code": 400
+    },
+    "get_amortized_costs_-2392187577521572823": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ],
+        "filters": {
+          "vendor": "AWS"
+        }
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly&filter=vendor%3D%3DAWS",
+      "status_code": 400
+    },
+    "get_amortized_costs_-6725573967259829968": {
+      "tool": "get_amortized_costs",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "dimensions": [
+          "vendor"
+        ],
+        "filters": {
+          "vendor": "Azure"
+        }
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=vendor&metrics=total_amortized_cost&granularity=monthly&filter=vendor%3D%3DAzure",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_2400722965630786845": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-12170-Internal Engagement Products"
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_4442295494307686841": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-14069-Client Data and Document Repository"
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298466/data",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_-4879501282423609275": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-10714-KnowDocs"
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298468/data",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_-1696673236113460179": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-12170-Internal Engagement Products",
+        "limit": 10
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data?limit=10",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_-1364513511745584816": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-12170-Internal Engagement Products",
+        "limit": 50
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data?limit=50",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_-7685414607840151822": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-12170-Internal Engagement Products",
+        "limit": 100
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data?limit=100",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_1370087940427563729": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-14069-Client Data and Document Repository",
+        "limit": 10
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298466/data?limit=10",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_-3654536311842932097": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-14069-Client Data and Document Repository",
+        "limit": 50
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298466/data?limit=50",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_7345054885100859800": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-14069-Client Data and Document Repository",
+        "limit": 100
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298466/data?limit=100",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_9040270177035168877": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-10714-KnowDocs",
+        "limit": 10
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298468/data?limit=10",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_6102497346221385325": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-10714-KnowDocs",
+        "limit": 50
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298468/data?limit=50",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_-3870303595835989022": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-10714-KnowDocs",
+        "limit": 100
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298468/data?limit=100",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_1943138603944048738": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "view_name": "Product-12170-Internal Engagement Products"
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data?start_date=2025-11-12&end_date=2025-11-19",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_7975208493725834194": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "view_name": "Product-12170-Internal Engagement Products"
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data?start_date=2025-11-05&end_date=2025-11-19",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_-5101362672945979318": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "start_date": "2025-10-20",
+        "end_date": "2025-11-19",
+        "view_name": "Product-12170-Internal Engagement Products"
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data?start_date=2025-10-20&end_date=2025-11-19",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_6570050029416688603": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "view_name": "Product-14069-Client Data and Document Repository"
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298466/data?start_date=2025-11-12&end_date=2025-11-19",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_7463676682777870125": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "view_name": "Product-14069-Client Data and Document Repository"
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298466/data?start_date=2025-11-05&end_date=2025-11-19",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_-8925662094485969793": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "start_date": "2025-10-20",
+        "end_date": "2025-11-19",
+        "view_name": "Product-14069-Client Data and Document Repository"
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298466/data?start_date=2025-10-20&end_date=2025-11-19",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_4237442004286400830": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-12170-Internal Engagement Products",
+        "export_format": "json"
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_-7760886907969930734": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-12170-Internal Engagement Products",
+        "export_format": "csv"
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_-7663701775771820797": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-14069-Client Data and Document Repository",
+        "export_format": "json"
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298466/data",
+      "status_code": 400
+    },
+    "get_cost_report_by_view_-1954405588981028814": {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-14069-Client Data and Document Repository",
+        "export_format": "csv"
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298466/data",
+      "status_code": 400
+    },
+    "export_cost_report_123582123985969994": {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19"
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service&metrics=total_amortized_cost",
+      "status_code": 422
+    },
+    "export_cost_report_-3408805974051348006": {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19"
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=service&metrics=total_amortized_cost",
+      "status_code": 422
+    },
+    "export_cost_report_-6482384701326816022": {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-10-20",
+        "end_date": "2025-11-19"
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost",
+      "status_code": 422
+    },
+    "export_cost_report_-136679009756315958": {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-09-20",
+        "end_date": "2025-11-19"
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-09-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost",
+      "status_code": 422
+    },
+    "export_cost_report_-2709585992504688690": {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-08-21",
+        "end_date": "2025-11-19"
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-08-21&end=2025-11-19&dimensions=service&metrics=total_amortized_cost",
+      "status_code": 422
+    },
+    "export_cost_report_-4586568570907983498": {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "filters": {
+          "product_id": "K8s"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=product_id%3D%3DK8s",
+      "status_code": 422
+    },
+    "export_cost_report_-5464834554696169142": {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "AWS"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DAWS",
+      "status_code": 422
+    },
+    "export_cost_report_7619951347438755328": {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "Azure"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DAzure",
+      "status_code": 422
+    },
+    "export_cost_report_563873586859552604": {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "GCP"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-12&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DGCP",
+      "status_code": 422
+    },
+    "export_cost_report_6664149003434505384": {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "filters": {
+          "product_id": "K8s"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=product_id%3D%3DK8s",
+      "status_code": 422
+    },
+    "export_cost_report_2221958464121027288": {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "AWS"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DAWS",
+      "status_code": 422
+    },
+    "export_cost_report_3296346421137964360": {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "Azure"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DAzure",
+      "status_code": 422
+    },
+    "export_cost_report_-5640515393333390994": {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-05",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "GCP"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-05&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DGCP",
+      "status_code": 422
+    },
+    "export_cost_report_3894962600001234432": {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-10-20",
+        "end_date": "2025-11-19",
+        "filters": {
+          "product_id": "K8s"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=product_id%3D%3DK8s",
+      "status_code": 422
+    },
+    "export_cost_report_6626415819758602150": {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-10-20",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "AWS"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DAWS",
+      "status_code": 422
+    },
+    "export_cost_report_-2913601608137645998": {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-10-20",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "Azure"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DAzure",
+      "status_code": 422
+    },
+    "export_cost_report_7711531565762647942": {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-10-20",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "GCP"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DGCP",
+      "status_code": 422
+    },
+    "export_cost_report_1181821505284058286": {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-09-20",
+        "end_date": "2025-11-19",
+        "filters": {
+          "product_id": "K8s"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-09-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=product_id%3D%3DK8s",
+      "status_code": 422
+    },
+    "export_cost_report_4545323010157050837": {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-09-20",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "AWS"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-09-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DAWS",
+      "status_code": 422
+    },
+    "export_cost_report_-7349607459699691024": {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-09-20",
+        "end_date": "2025-11-19",
+        "filters": {
+          "vendor": "Azure"
+        }
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-09-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&filter=vendor%3D%3DAzure",
+      "status_code": 422
+    },
+    "analyze_container_cost_allocation_2743130913930081367": {
+      "tool": "analyze_container_cost_allocation",
+      "params": {},
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=cluster_name%2Cnamespace&metrics=total_cost&filter=product_id%3D%3DK8s",
+      "status_code": 422
+    },
+    "create_budget_9067383558196791523": {
+      "tool": "create_budget",
+      "params": {
+        "name": "test",
+        "basis": "test",
+        "view_id": "Product-12170-Internal Engagement Products",
+        "months": []
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/budgets",
+      "status_code": 422
+    },
+    "explore_tags_7497336314481204234": {
+      "tool": "explore_tags",
+      "params": {
+        "tag_key": "test"
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=tag%3Atest%2Cvendor%2Cservice&metrics=total_amortized_cost&filter=tag%3Atest%3D%3D%2A",
+      "status_code": 422
+    },
+    "export_cost_report_8267660435963703557": {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-19",
+        "end_date": "2025-11-19"
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-19&end=2025-11-19&dimensions=service&metrics=total_amortized_cost",
+      "status_code": 422
+    },
+    "get_amortized_costs_2743130913930081367": {
+      "tool": "get_amortized_costs",
+      "params": {},
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly",
+      "status_code": 422
+    },
+    "get_anomaly_detection_2743130913930081367": {
+      "tool": "get_anomaly_detection",
+      "params": {},
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=vendor%2Cservice%2Caccount_id&metrics=total_amortized_cost&anomaly_detection=true&min_change_percent=10.0",
+      "status_code": 422
+    },
+    "get_available_measures_2743130913930081367": {
+      "tool": "get_available_measures",
+      "params": {},
+      "error": "4xx Client Error: 404 Client Error: Not Found for url: https://api.cloudability.com/v3/reporting/measures",
+      "status_code": 404
+    },
+    "get_budget_-8931884302590807901": {
+      "tool": "get_budget",
+      "params": {
+        "budget_id": "test"
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/budgets/test",
+      "status_code": 422
+    },
+    "get_container_costs_2743130913930081367": {
+      "tool": "get_container_costs",
+      "params": {},
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=cluster_name%2Cnamespace&metrics=total_cost&filter=product_id%3D%3DK8s",
+      "status_code": 422
+    },
+    "get_container_resource_usage_2743130913930081367": {
+      "tool": "get_container_resource_usage",
+      "params": {},
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&metrics=cpu%2Freserved%2Cmemory%2Freserved_rss",
+      "status_code": 422
+    },
+    "get_cost_report_with_filters_2400722965630786845": {
+      "tool": "get_cost_report_with_filters",
+      "params": {
+        "view_name": "Product-12170-Internal Engagement Products"
+      },
+      "error": "4xx Client Error: 400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data",
+      "status_code": 400
+    },
+    "get_filter_operators_2743130913930081367": {
+      "tool": "get_filter_operators",
+      "params": {},
+      "error": "4xx Client Error: 404 Client Error: Not Found for url: https://api.cloudability.com/v3/reporting/operators",
+      "status_code": 404
+    },
+    "get_spending_estimate_2743130913930081367": {
+      "tool": "get_spending_estimate",
+      "params": {},
+      "error": "4xx Client Error: 404 Client Error: Not Found for url: https://api.cloudability.com/v3/forecast/estimate?view_id=0&basis=cash",
+      "status_code": 404
+    },
+    "get_spending_forecast_2743130913930081367": {
+      "tool": "get_spending_forecast",
+      "params": {},
+      "error": "4xx Client Error: 404 Client Error: Not Found for url: https://api.cloudability.com/v3/forecast/forecast?view_id=0&basis=cash&months_back=6&months_forward=12&use_current_estimate=True&remove_one_time_charges=True",
+      "status_code": 404
+    },
+    "list_available_tags_2743130913930081367": {
+      "tool": "list_available_tags",
+      "params": {},
+      "error": "404 Client Error: Not Found for url: https://api.cloudability.com/v3/reporting/dimensions?dimension_type=tag",
+      "status_code": null
+    },
+    "update_budget_-8931884302590807901": {
+      "tool": "update_budget",
+      "params": {
+        "budget_id": "test"
+      },
+      "error": "4xx Client Error: 422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/budgets/test",
+      "status_code": 422
+    }
+  },
+  "timestamp": "2025-11-19T15:24:24.188747"
+}

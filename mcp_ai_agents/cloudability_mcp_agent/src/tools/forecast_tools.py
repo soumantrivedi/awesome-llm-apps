@@ -31,7 +31,15 @@ class GetSpendingEstimateTool(CloudabilityTool):
         from ..api_client_extended import ExtendedCloudabilityAPIClient
         api = self.require_api_client()
         if not isinstance(api, ExtendedCloudabilityAPIClient):
-            api = ExtendedCloudabilityAPIClient(api_key=api.api_key, base_url=api.base_url)
+            api = ExtendedCloudabilityAPIClient(
+                api_key=api.api_key,
+                base_url=api.base_url,
+                auth_type=api.auth_type,
+                public_key=api.public_key,
+                private_key=api.private_key,
+                environment_id=api.environment_id,
+                frontdoor_url=api.frontdoor_url
+            )
         return api.get_spending_estimate(
             view_id=args.get("view_id", "0"),
             basis=args.get("basis", "cash")
@@ -64,7 +72,15 @@ class GetSpendingForecastTool(CloudabilityTool):
         from ..api_client_extended import ExtendedCloudabilityAPIClient
         api = self.require_api_client()
         if not isinstance(api, ExtendedCloudabilityAPIClient):
-            api = ExtendedCloudabilityAPIClient(api_key=api.api_key, base_url=api.base_url)
+            api = ExtendedCloudabilityAPIClient(
+                api_key=api.api_key,
+                base_url=api.base_url,
+                auth_type=api.auth_type,
+                public_key=api.public_key,
+                private_key=api.private_key,
+                environment_id=api.environment_id,
+                frontdoor_url=api.frontdoor_url
+            )
         return api.get_spending_forecast(
             view_id=args.get("view_id", "0"),
             basis=args.get("basis", "cash"),

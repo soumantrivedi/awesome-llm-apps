@@ -48,6 +48,9 @@ Thumbs.db
 .coverage
 htmlcov/
 
+# Generated contents (reports, exports)
+generated-contents/
+
 # Logs
 *.log
 

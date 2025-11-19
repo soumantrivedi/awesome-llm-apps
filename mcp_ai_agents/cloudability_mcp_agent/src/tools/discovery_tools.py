@@ -85,17 +85,50 @@ class GetAvailableMeasuresTool(CloudabilityTool):
         return "get_available_measures"
     
     def get_description(self) -> str:
-        return "Discover available dimensions and metrics for cost reports."
+        return "Discover available dimensions and metrics for cost reports. Returns documented dimensions and metrics based on IBM Cloudability API v3 documentation."
     
     def get_input_schema(self) -> dict:
         return {"type": "object", "properties": {}}
     
     async def execute(self, args: dict) -> dict:
+        from ..api_validator import APIParameterValidator
         from ..api_client_extended import ExtendedCloudabilityAPIClient
+        
+        # First, try to get from API if available
         api = self.require_api_client()
-        if not isinstance(api, ExtendedCloudabilityAPIClient):
-            api = ExtendedCloudabilityAPIClient(api_key=api.api_key, base_url=api.base_url)
-        return api.get_available_measures()
+        if isinstance(api, ExtendedCloudabilityAPIClient):
+            try:
+                api_result = api.get_available_measures()
+                if api_result.get("success") and api_result.get("measures"):
+                    return api_result
+            except Exception:
+                pass  # Fall through to documented values
+        
+        # Return documented dimensions and metrics from API validator
+        # Based on IBM Cloudability API v3 documentation
+        return {
+            "success": True,
+            "source": "documented",
+            "measures": {
+                "dimensions": {
+                    "core": APIParameterValidator.CORE_DIMENSIONS,
+                    "resource": APIParameterValidator.RESOURCE_DIMENSIONS,
+                    "kubernetes": APIParameterValidator.K8S_DIMENSIONS,
+                    "cost_allocation": APIParameterValidator.COST_DIMENSIONS,
+                    "all": APIParameterValidator.VALID_DIMENSIONS
+                },
+                "metrics": {
+                    "cost": APIParameterValidator.COST_METRICS,
+                    "usage": APIParameterValidator.USAGE_METRICS,
+                    "all": APIParameterValidator.VALID_METRICS
+                },
+                "recommended": {
+                    "default_dimension": "vendor",
+                    "default_metric": "total_amortized_cost",
+                    "note": "Based on IBM Cloudability API v3 documentation"
+                }
+            }
+        }
 
 
 class GetFilterOperatorsTool(CloudabilityTool):
@@ -105,17 +138,66 @@ class GetFilterOperatorsTool(CloudabilityTool):
         return "get_filter_operators"
     
     def get_description(self) -> str:
-        return "Get available filter operators for building filter expressions."
+        return "Get available filter operators for building filter expressions. Returns documented operators based on IBM Cloudability API v3 documentation."
     
     def get_input_schema(self) -> dict:
         return {"type": "object", "properties": {}}
     
     async def execute(self, args: dict) -> dict:
+        from ..api_validator import APIParameterValidator
         from ..api_client_extended import ExtendedCloudabilityAPIClient
+        
+        # First, try to get from API if available
         api = self.require_api_client()
-        if not isinstance(api, ExtendedCloudabilityAPIClient):
-            api = ExtendedCloudabilityAPIClient(api_key=api.api_key, base_url=api.base_url)
-        return api.get_filter_operators()
+        if isinstance(api, ExtendedCloudabilityAPIClient):
+            try:
+                api_result = api.get_filter_operators()
+                if api_result.get("success") and api_result.get("operators"):
+                    return api_result
+            except Exception:
+                pass  # Fall through to documented values
+        
+        # Return documented filter operators from API validator
+        # Based on IBM Cloudability API v3 documentation
+        operators = APIParameterValidator.VALID_FILTER_OPERATORS
+        operator_descriptions = {
+            "==": "Equals - exact match",
+            "!=": "Does not equal - exclude exact match",
+            ">": "Greater than - numeric comparison",
+            "<": "Less than - numeric comparison",
+            ">=": "Greater than or equal to - numeric comparison",
+            "<=": "Less than or equal to - numeric comparison",
+            "=@": "Contains - wildcard/pattern matching (e.g., region=@us-east-)",
+            "!=@": "Does not contain - exclude pattern match"
+        }
+        
+        return {
+            "success": True,
+            "source": "documented",
+            "operators": [
+                {
+                    "operator": op,
+                    "description": operator_descriptions.get(op, "Filter operator"),
+                    "example": self._get_operator_example(op)
+                }
+                for op in operators
+            ],
+            "note": "Based on IBM Cloudability API v3 documentation. Multiple filters can be applied using multiple 'filters=' query parameters."
+        }
+    
+    def _get_operator_example(self, operator: str) -> str:
+        """Get example usage for an operator"""
+        examples = {
+            "==": "service==AmazonEC2",
+            "!=": "vendor!=Azure",
+            ">": "total_amortized_cost>100",
+            "<": "total_amortized_cost<50",
+            ">=": "total_amortized_cost>=100",
+            "<=": "total_amortized_cost<=1000",
+            "=@": "region=@us-east-",
+            "!=@": "service!=@EC2"
+        }
+        return examples.get(operator, f"dimension{operator}value")
 
 
 # Register tools

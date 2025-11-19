@@ -12,6 +12,7 @@ from . import tag_tools
 from . import anomaly_tools
 from . import discovery_tools
 from . import allocation_tools
+from . import comprehensive_report_tool
 
 __all__ = [
     'cost_reporting_tools',
@@ -22,5 +23,6 @@ __all__ = [
     'anomaly_tools',
     'discovery_tools',
     'allocation_tools',
+    'comprehensive_report_tool',
 ]
 

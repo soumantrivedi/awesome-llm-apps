@@ -6,6 +6,7 @@ Tools for retrieving amortized cost data
 from ..framework.tool_base import get_registry
 from .base_tool import CloudabilityTool
 from ..config import Config
+from ..utils import export_to_csv, export_to_json, export_to_markdown, generate_timestamped_filename
 
 registry = get_registry()
 
@@ -75,9 +76,13 @@ class GetAmortizedCostsTool(CloudabilityTool):
                 },
                 "export_format": {
                     "type": "string",
-                    "enum": ["json", "csv"],
+                    "enum": ["json", "csv", "markdown"],
                     "description": "Export format (default: json)",
                     "default": "json"
+                },
+                "file_name": {
+                    "type": "string",
+                    "description": "Optional: Custom file name (without extension)"
                 }
             },
             "required": ["start_date", "end_date"]
@@ -112,19 +117,73 @@ class GetAmortizedCostsTool(CloudabilityTool):
                     "error": error_msg
                 }
         
+        # Ensure metrics default to amortized cost if not provided
+        metrics = args.get("metrics")
+        if not metrics:
+            metrics = ["total_amortized_cost"]
+        
+        # Get export format
+        export_format = args.get("export_format", "json")
+        file_name = args.get("file_name")
+        
+        # For CSV, let API handle it directly (it returns CSV text)
+        # For JSON/Markdown, get JSON from API and export ourselves
+        api_export_format = "csv" if export_format == "csv" else "json"
+        
+        # Call API
         result = api.get_amortized_costs(
             start_date=args.get("start_date"),
             end_date=args.get("end_date"),
             dimensions=dimensions,
-            metrics=args.get("metrics"),
+            metrics=metrics,
             filters=args.get("filters"),
             view_name=args.get("view_name"),
             granularity=args.get("granularity", "monthly"),
-            export_format=args.get("export_format", "json")
+            export_format=api_export_format
         )
         
-        # CSV export is handled in main.py
-        # Just return the result as-is
+        # Handle export to file if successful
+        if result.get("success"):
+            start_date = result.get("start_date") or args.get("start_date")
+            end_date = result.get("end_date") or args.get("end_date")
+            
+            # Generate filename
+            if file_name:
+                base_name = file_name
+            else:
+                base_name = "amortized_costs"
+                if start_date and end_date:
+                    base_name += f"_{start_date}_to_{end_date}"
+            
+            if export_format == "csv":
+                # API already returned CSV data, just write it to file
+                csv_data = result.get("csv_data", "")
+                if csv_data:
+                    file_path = generate_timestamped_filename(base_name, "csv")
+                    with open(file_path, 'w', encoding='utf-8') as f:
+                        f.write(csv_data)
+                    result["export_path"] = file_path
+                    result["export_format"] = "csv"
+            elif export_format == "markdown":
+                # Convert JSON data to Markdown
+                data = result.get("data", [])
+                if data:
+                    file_path = generate_timestamped_filename(base_name, "md")
+                    export_to_markdown(
+                        data, 
+                        file_path, 
+                        title=f"Amortized Costs ({start_date} to {end_date})"
+                    )
+                    result["export_path"] = file_path
+                    result["export_format"] = "markdown"
+            else:  # json (default)
+                # Export JSON data to file
+                data = result.get("data", [])
+                if data:
+                    file_path = generate_timestamped_filename(base_name, "json")
+                    export_to_json(data, file_path)
+                    result["export_path"] = file_path
+                    result["export_format"] = "json"
         
         return result
 

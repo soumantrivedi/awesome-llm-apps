@@ -70,9 +70,9 @@ async def test_list_budgets():
 
 
 async def test_get_amortized_costs():
-    """Test get_amortized_costs tool"""
+    """Test get_amortized_costs tool with supported dimensions"""
     print("=" * 80)
-    print("Test 3: Get Amortized Costs")
+    print("Test 3: Get Amortized Costs (vendor dimension)")
     print("=" * 80)
     
     # Calculate date range (last 30 days)
@@ -84,6 +84,7 @@ async def test_get_amortized_costs():
         "start_date": start_date.strftime("%Y-%m-%d"),
         "end_date": end_date.strftime("%Y-%m-%d"),
         "dimensions": ["vendor"],
+        "metrics": ["total_amortized_cost"],  # Explicitly use amortized cost
         "granularity": "monthly",
         "export_format": "json"
     })
@@ -118,6 +119,7 @@ async def test_get_amortized_costs_csv():
         "start_date": start_date.strftime("%Y-%m-%d"),
         "end_date": end_date.strftime("%Y-%m-%d"),
         "dimensions": ["vendor"],
+        "metrics": ["total_amortized_cost"],  # Explicitly use amortized cost
         "granularity": "monthly",
         "export_format": "csv"
     })
@@ -140,10 +142,12 @@ async def test_get_amortized_costs_csv():
 
 
 async def test_invalid_dimension():
-    """Test get_amortized_costs with invalid dimension"""
+    """Test get_amortized_costs with invalid dimension - should be rejected"""
     print("=" * 80)
-    print("Test 5: Get Amortized Costs (Invalid Dimension)")
+    print("Test 5: Get Amortized Costs (Invalid Dimension Validation)")
     print("=" * 80)
+    print("Testing that invalid dimensions are correctly rejected...")
+    print()
     
     end_date = datetime.now()
     start_date = end_date - timedelta(days=30)
@@ -152,15 +156,24 @@ async def test_invalid_dimension():
     result = await server.call_tool("get_amortized_costs", {
         "start_date": start_date.strftime("%Y-%m-%d"),
         "end_date": end_date.strftime("%Y-%m-%d"),
-        "dimensions": ["cluster_name"],  # Invalid dimension
-        "granularity": "monthly"
+        "dimensions": ["cluster_name"],  # Invalid dimension - should be rejected
+        "granularity": "monthly",
+        "metrics": ["total_amortized_cost"]  # Explicitly use amortized cost
     })
     
-    print(f"Success: {result.get('success')}")
+    # This test expects failure (success=False) - that's the correct behavior
     if not result.get("success"):
-        print(f"Expected error: {result.get('error')}")
+        error = result.get('error', '')
+        print("✓ TEST PASSED: Invalid dimension correctly rejected")
+        print(f"  Error message: {error[:150]}...")
+        if "Invalid dimensions" in error or "cluster_name" in error:
+            print("✓ Validation error message is correct and informative")
+        else:
+            print("⚠️  Warning: Error message doesn't mention invalid dimensions")
     else:
-        print("WARNING: Should have failed with invalid dimension")
+        print("✗ TEST FAILED: Should have rejected invalid dimension!")
+        print("  The tool incorrectly accepted 'cluster_name' as a valid dimension")
+        raise AssertionError("Invalid dimension was not rejected")
     print()
 
 

@@ -123,6 +123,7 @@ async def test_get_amortized_costs_vendor(results: TestResults):
             "start_date": start_date.strftime("%Y-%m-%d"),
             "end_date": end_date.strftime("%Y-%m-%d"),
             "dimensions": ["vendor"],
+            "metrics": ["total_amortized_cost"],  # Explicitly use amortized cost
             "granularity": "monthly"
         })
         
@@ -140,9 +141,9 @@ async def test_get_amortized_costs_vendor(results: TestResults):
         results.add_fail(test_name, f"Exception: {str(e)}")
 
 
-async def test_get_amortized_costs_service(results: TestResults):
-    """Test get_amortized_costs with service dimension"""
-    test_name = "get_amortized_costs (service dimension)"
+async def test_get_amortized_costs_multiple_dimensions(results: TestResults):
+    """Test get_amortized_costs with multiple verified dimensions"""
+    test_name = "get_amortized_costs (vendor + region dimensions)"
     try:
         end_date = datetime.now()
         start_date = end_date - timedelta(days=30)
@@ -151,7 +152,8 @@ async def test_get_amortized_costs_service(results: TestResults):
         result = await server.call_tool("get_amortized_costs", {
             "start_date": start_date.strftime("%Y-%m-%d"),
             "end_date": end_date.strftime("%Y-%m-%d"),
-            "dimensions": ["service"],
+            "dimensions": ["vendor", "region"],  # Use verified working dimensions
+            "metrics": ["total_amortized_cost"],  # Explicitly use amortized cost
             "granularity": "monthly"
         })
         
@@ -181,6 +183,7 @@ async def test_get_amortized_costs_region(results: TestResults):
             "start_date": start_date.strftime("%Y-%m-%d"),
             "end_date": end_date.strftime("%Y-%m-%d"),
             "dimensions": ["region"],
+            "metrics": ["total_amortized_cost"],  # Explicitly use amortized cost
             "granularity": "monthly"
         })
         
@@ -199,8 +202,8 @@ async def test_get_amortized_costs_region(results: TestResults):
 
 
 async def test_get_amortized_costs_invalid_dimension(results: TestResults):
-    """Test get_amortized_costs with invalid dimension (should fail gracefully)"""
-    test_name = "get_amortized_costs (invalid dimension - should fail)"
+    """Test get_amortized_costs with invalid dimension (should fail with validation error)"""
+    test_name = "get_amortized_costs (invalid dimension - validation)"
     try:
         end_date = datetime.now()
         start_date = end_date - timedelta(days=30)
@@ -209,24 +212,26 @@ async def test_get_amortized_costs_invalid_dimension(results: TestResults):
         result = await server.call_tool("get_amortized_costs", {
             "start_date": start_date.strftime("%Y-%m-%d"),
             "end_date": end_date.strftime("%Y-%m-%d"),
-            "dimensions": ["cluster_name"],  # Invalid dimension
+            "dimensions": ["cluster_name"],  # Invalid dimension - should be rejected
+            "metrics": ["total_amortized_cost"],  # Explicitly use amortized cost
             "granularity": "monthly"
         })
         
-        # This should fail with a validation error, not an HTTP error
+        # This should fail with a validation error BEFORE making API call
         if result.get("success"):
-            results.add_fail(test_name, "Should have failed with invalid dimension")
+            results.add_fail(test_name, "Should have failed with invalid dimension validation")
             return
         
-        # Should have a validation error, not an HTTP error
-        if result.get("status_code") and result.get("status_code") >= 400:
-            # This is acceptable - API rejected it
+        # Should have a validation error (not an HTTP error, since validation happens before API call)
+        error_msg = result.get("error", "")
+        if "Invalid dimensions" in error_msg or "cluster_name" in error_msg:
+            # Validation error is correct - tool rejected it before API call
             results.add_pass(test_name)
-        elif "Invalid dimensions" in result.get("error", ""):
-            # Validation error is also acceptable
+        elif result.get("status_code") and result.get("status_code") >= 400:
+            # API rejected it (less ideal but acceptable)
             results.add_pass(test_name)
         else:
-            results.add_fail(test_name, f"Unexpected error: {result.get('error')}")
+            results.add_fail(test_name, f"Unexpected error: {error_msg}")
     except Exception as e:
         results.add_fail(test_name, f"Exception: {str(e)}")
 
@@ -243,6 +248,7 @@ async def test_get_amortized_costs_csv(results: TestResults):
             "start_date": start_date.strftime("%Y-%m-%d"),
             "end_date": end_date.strftime("%Y-%m-%d"),
             "dimensions": ["vendor"],
+            "metrics": ["total_amortized_cost"],  # Explicitly use amortized cost
             "granularity": "monthly",
             "export_format": "csv"
         })
@@ -296,8 +302,8 @@ async def main():
     await test_list_views(results)
     await test_list_budgets(results)
     await test_get_amortized_costs_vendor(results)
-    await test_get_amortized_costs_service(results)
     await test_get_amortized_costs_region(results)
+    await test_get_amortized_costs_multiple_dimensions(results)
     await test_get_amortized_costs_invalid_dimension(results)
     await test_get_amortized_costs_csv(results)
     

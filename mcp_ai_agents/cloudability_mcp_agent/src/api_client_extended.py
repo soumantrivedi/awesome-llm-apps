@@ -11,6 +11,7 @@ import requests
 from .api_client import CloudabilityAPIClient
 from .utils import (
     build_filter_string,
+    build_filter_list,
     get_default_date_range,
     format_error_response,
 )
@@ -53,20 +54,40 @@ class ExtendedCloudabilityAPIClient(CloudabilityAPIClient):
             dimensions = [dimension_map.get(g, g) for g in (group_by or ["cluster", "namespace"])]
             
             params = {
-                "start": start_date,
-                "end": end_date,
-                "dimensions": ",".join(dimensions),
-                "metrics": ",".join(metrics) if metrics else "total_cost"
+                "start_date": start_date,
+                "end_date": end_date,
+                "dimensions": ",".join(dimensions)
             }
             
+            # Use provided metrics or default to "total_cost"
+            metric_name = ",".join(metrics) if metrics else "total_cost"
+            params["metrics"] = metric_name
+            
+            # Add product_id filter for containers if not provided
+            # Use repeated query parameters format for filters
             if filters:
-                params["filter"] = build_filter_string(filters)
+                filter_list = build_filter_list(filters)
+                params["filters"] = filter_list
             else:
-                params["filter"] = "product_id==K8s"
+                # Default to K8s filter for container costs
+                params["filters"] = ["product_id==K8s"]
             
             headers = {"Accept": "text/csv"} if export_format == "csv" else {}
             
-            response = self._make_request("GET", "/reporting/cost/run", params=params, headers=headers)
+            # Make request with retry logic for 422 errors
+            try:
+                response = self._make_request("GET", "/reporting/cost/run", params=params, headers=headers)
+            except requests.exceptions.HTTPError as e:
+                # If 422 error, try with "total_cost" instead of "cost"
+                if hasattr(e, 'response') and e.response is not None:
+                    if e.response.status_code == 422 and params.get("metrics") == "cost":
+                        logger.info("Trying alternative metric name: total_cost")
+                        params["metrics"] = "total_cost"
+                        response = self._make_request("GET", "/reporting/cost/run", params=params, headers=headers)
+                    else:
+                        raise
+                else:
+                    raise
             
             if export_format == "csv":
                 return {

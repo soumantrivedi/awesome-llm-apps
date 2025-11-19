@@ -1,0 +1,226 @@
+{
+  "summary": {
+    "total_tests": 29,
+    "working": 10,
+    "failed": 19,
+    "errors_4xx": 18,
+    "errors_5xx": 0
+  },
+  "working_combinations": [
+    {
+      "tool": "list_views",
+      "params": {},
+      "success": true,
+      "timestamp": "2025-11-19T16:11:28.189113"
+    },
+    {
+      "tool": "list_views",
+      "params": {
+        "limit": 10
+      },
+      "success": true,
+      "timestamp": "2025-11-19T16:11:28.694665"
+    },
+    {
+      "tool": "list_views",
+      "params": {
+        "limit": 50
+      },
+      "success": true,
+      "timestamp": "2025-11-19T16:11:29.223690"
+    },
+    {
+      "tool": "list_views",
+      "params": {
+        "limit": 100
+      },
+      "success": true,
+      "timestamp": "2025-11-19T16:11:29.777887"
+    },
+    {
+      "tool": "list_views",
+      "params": {
+        "limit": 250
+      },
+      "success": true,
+      "timestamp": "2025-11-19T16:11:30.352775"
+    },
+    {
+      "tool": "list_views",
+      "params": {
+        "offset": 0
+      },
+      "success": true,
+      "timestamp": "2025-11-19T16:11:31.018260"
+    },
+    {
+      "tool": "list_views",
+      "params": {
+        "offset": 10
+      },
+      "success": true,
+      "timestamp": "2025-11-19T16:11:31.571663"
+    },
+    {
+      "tool": "list_views",
+      "params": {
+        "limit": 50,
+        "offset": 0
+      },
+      "success": true,
+      "timestamp": "2025-11-19T16:11:32.107762"
+    },
+    {
+      "tool": "list_views",
+      "params": {
+        "limit": 100,
+        "offset": 50
+      },
+      "success": true,
+      "timestamp": "2025-11-19T16:11:32.633247"
+    },
+    {
+      "tool": "list_budgets",
+      "params": {},
+      "success": true,
+      "timestamp": "2025-11-19T16:11:33.253707"
+    }
+  ],
+  "failed_combinations": [
+    {
+      "tool": "get_amortized_costs",
+      "params": {},
+      "success": false,
+      "timestamp": "2025-11-19T16:11:34.293778"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-12170-Internal Engagement Products"
+      },
+      "success": false,
+      "timestamp": "2025-11-19T16:11:35.951989"
+    },
+    {
+      "tool": "analyze_container_cost_allocation",
+      "params": {},
+      "success": false,
+      "timestamp": "2025-11-19T16:11:37.001898"
+    },
+    {
+      "tool": "create_budget",
+      "params": {
+        "name": "test",
+        "basis": "test",
+        "view_id": "Product-12170-Internal Engagement Products",
+        "months": []
+      },
+      "success": false,
+      "timestamp": "2025-11-19T16:11:38.095634"
+    },
+    {
+      "tool": "explore_tags",
+      "params": {
+        "tag_key": "test"
+      },
+      "success": false,
+      "timestamp": "2025-11-19T16:11:38.610854"
+    },
+    {
+      "tool": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-12",
+        "end_date": "2025-11-12"
+      },
+      "success": false,
+      "timestamp": "2025-11-19T16:11:39.634077"
+    },
+    {
+      "tool": "get_amortized_costs",
+      "params": {},
+      "success": false,
+      "timestamp": "2025-11-19T16:11:40.682146"
+    },
+    {
+      "tool": "get_anomaly_detection",
+      "params": {},
+      "success": false,
+      "timestamp": "2025-11-19T16:11:41.275211"
+    },
+    {
+      "tool": "get_available_measures",
+      "params": {},
+      "success": false,
+      "timestamp": "2025-11-19T16:11:41.761743"
+    },
+    {
+      "tool": "get_budget",
+      "params": {
+        "budget_id": "test"
+      },
+      "success": false,
+      "timestamp": "2025-11-19T16:11:42.331369"
+    },
+    {
+      "tool": "get_container_costs",
+      "params": {},
+      "success": false,
+      "timestamp": "2025-11-19T16:11:43.382430"
+    },
+    {
+      "tool": "get_container_resource_usage",
+      "params": {},
+      "success": false,
+      "timestamp": "2025-11-19T16:11:43.890915"
+    },
+    {
+      "tool": "get_cost_report_by_view",
+      "params": {
+        "view_name": "Product-12170-Internal Engagement Products"
+      },
+      "success": false,
+      "timestamp": "2025-11-19T16:11:45.645127"
+    },
+    {
+      "tool": "get_cost_report_with_filters",
+      "params": {
+        "view_name": "Product-12170-Internal Engagement Products"
+      },
+      "success": false,
+      "timestamp": "2025-11-19T16:11:47.211223"
+    },
+    {
+      "tool": "get_filter_operators",
+      "params": {},
+      "success": false,
+      "timestamp": "2025-11-19T16:11:47.710491"
+    },
+    {
+      "tool": "get_spending_estimate",
+      "params": {},
+      "success": false,
+      "timestamp": "2025-11-19T16:11:48.217617"
+    },
+    {
+      "tool": "get_spending_forecast",
+      "params": {},
+      "success": false,
+      "timestamp": "2025-11-19T16:11:48.727867"
+    },
+    {
+      "tool": "list_available_tags",
+      "params": {},
+      "success": false,
+      "timestamp": "2025-11-19T16:11:49.230442"
+    },
+    {
+      "tool": "update_budget",
+      "params": {
+        "budget_id": "test"
+      },
+      "success": false,
+      "timestamp": "2025-11-19T16:11:49.761439"
+    }
+  ],
+  "timestamp": "2025-11-19T16:11:49.769015"
+}

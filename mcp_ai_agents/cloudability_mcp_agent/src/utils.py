@@ -13,19 +13,175 @@ logger = logging.getLogger(__name__)
 
 def build_filter_string(filters: Dict[str, str]) -> str:
     """
-    Build filter string for API requests
-    Format: key1==value1,key2==value2
+    Build filter string for API requests (comma-separated format)
+    Supports multiple formats:
+    - Equality: key==value
+    - Contains/wildcard: key=@value (for wildcard matching)
+    - IN operator: key[]==value1,value2
+    - Comparison: key>value, key<value, etc.
     
     Args:
         filters: Dictionary of filter key-value pairs
+                 Values starting with '*' are treated as wildcards (converted to @)
+                 Values containing ',' are treated as IN lists
+                 Values starting with '>', '<', '>=' or '<=' are comparison operators
         
     Returns:
         Comma-separated filter string
     """
     if not filters:
         return ""
-    filter_parts = [f"{key}=={value}" for key, value in filters.items()]
+    
+    filter_parts = []
+    for key, value in filters.items():
+        if not key or not value:
+            continue
+            
+        # Handle wildcard patterns (e.g., "ici*" -> "namespace=@ici")
+        # The @ operator in Cloudability means "contains" or "starts with"
+        if '*' in value:
+            # Convert wildcard to contains operator (remove * and use @)
+            clean_value = value.replace('*', '')
+            filter_parts.append(f"{key}=@{clean_value}")
+        elif value.startswith('*'):
+            # Ends with pattern - API doesn't directly support, use contains
+            clean_value = value.replace('*', '')
+            filter_parts.append(f"{key}=@{clean_value}")
+        # Handle IN operator (comma-separated values)
+        elif ',' in value:
+            filter_parts.append(f"{key}[]=={value}")
+        # Handle comparison operators
+        elif value.startswith(('>', '<', '>=', '<=')):
+            filter_parts.append(f"{key}{value}")
+        # Default: equality
+        else:
+            filter_parts.append(f"{key}=={value}")
+    
     return ",".join(filter_parts)
+
+
+def build_filter_list(filters: Dict[str, str]) -> List[str]:
+    """
+    Build filter list for API requests (repeated query parameters format)
+    Cloudability API v3 expects multiple filters= parameters, not comma-separated.
+    
+    Based on IBM Cloudability API v3 documentation:
+    https://www.ibm.com/docs/en/cloudability-commercial/cloudability-essentials/saas?topic=api-getting-started-cloudability-v3
+    
+    Filter operators supported:
+    - == (equals)
+    - != (does not equal)
+    - > (greater than)
+    - < (less than)
+    - >= (greater than or equal to)
+    - <= (less than or equal to)
+    - =@ (contains/wildcard matching)
+    - !=@ (does not contain)
+    
+    Example: filters=namespace=@ici&filters=product_id==K8s
+    
+    Args:
+        filters: Dictionary of filter key-value pairs
+                 Values starting with '*' are treated as wildcards (converted to =@)
+                 Values containing ',' are treated as IN lists
+                 Values starting with '>', '<', '>=' or '<=' are comparison operators
+        
+    Returns:
+        List of filter strings, one per filter condition
+    """
+    if not filters:
+        return []
+    
+    filter_list = []
+    for key, value in filters.items():
+        if not key or not value:
+            continue
+            
+        # Handle wildcard patterns (e.g., "ici*" -> "namespace=@ici")
+        # The =@ operator in Cloudability means "contains" (per IBM API documentation)
+        if '*' in value:
+            # Convert wildcard to contains operator (remove * and use =@)
+            clean_value = value.replace('*', '')
+            filter_list.append(f"{key}=@{clean_value}")
+        elif value.startswith('*'):
+            # Ends with pattern - API doesn't directly support, use contains
+            clean_value = value.replace('*', '')
+            filter_list.append(f"{key}=@{clean_value}")
+        # Handle IN operator (comma-separated values)
+        elif ',' in value:
+            filter_list.append(f"{key}[]=={value}")
+        # Handle comparison operators
+        elif value.startswith(('>', '<', '>=', '<=')):
+            filter_list.append(f"{key}{value}")
+        # Default: equality
+        else:
+            filter_list.append(f"{key}=={value}")
+    
+    return filter_list
+
+
+def data_to_markdown_table(data: List[Dict], title: str = "Cost Report") -> str:
+    """
+    Convert data to Markdown table format
+    
+    Args:
+        data: List of dictionaries to convert
+        title: Optional title for the report
+        
+    Returns:
+        Markdown formatted string with table
+    """
+    if not data:
+        return f"# {title}\n\nNo data available.\n"
+    
+    try:
+        # Get all unique keys from all records
+        all_keys = set()
+        for record in data:
+            all_keys.update(record.keys())
+        
+        # Sort keys for consistent output (put common ones first)
+        common_keys = ['date', 'namespace', 'cluster_name', 'account_id', 'product_id', 
+                      'vendor', 'service', 'total_amortized_cost', 'cost', 'amount']
+        ordered_keys = []
+        for key in common_keys:
+            if key in all_keys:
+                ordered_keys.append(key)
+        for key in sorted(all_keys - set(ordered_keys)):
+            ordered_keys.append(key)
+        
+        # Build markdown table
+        lines = [f"# {title}\n"]
+        
+        # Table header
+        header = "| " + " | ".join(str(k).replace('_', ' ').title() for k in ordered_keys) + " |"
+        separator = "| " + " | ".join(["---"] * len(ordered_keys)) + " |"
+        lines.append(header)
+        lines.append(separator)
+        
+        # Table rows
+        for record in data:
+            row = "| " + " | ".join(
+                str(record.get(k, "")).replace("|", "\\|") for k in ordered_keys
+            ) + " |"
+            lines.append(row)
+        
+        # Add summary if cost data is present
+        cost_keys = [k for k in ordered_keys if 'cost' in k.lower() or 'amount' in k.lower()]
+        if cost_keys:
+            total = sum(
+                float(str(record.get(k, 0)).replace(',', '').replace('$', '')) 
+                for record in data 
+                for k in cost_keys 
+                if str(record.get(k, 0)).replace(',', '').replace('$', '').replace('-', '').replace('.', '').isdigit()
+            )
+            if total > 0:
+                lines.append(f"\n**Total Cost:** ${total:,.2f}")
+        
+        return "\n".join(lines) + "\n"
+    except Exception as e:
+        logger.error(f"Error converting data to Markdown: {e}")
+        return f"# {title}\n\nError generating table: {str(e)}\n"
 
 
 def data_to_csv_string(data: List[Dict]) -> str:

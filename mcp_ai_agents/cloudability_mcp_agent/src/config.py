@@ -3,11 +3,14 @@ Configuration management for Cloudability MCP Server
 """
 
 import os
+import logging
 from typing import Optional
 from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
+
+logger = logging.getLogger(__name__)
 
 
 class Config:
@@ -26,7 +29,20 @@ class Config:
     ME_BASE_URL: str = "https://api-me.cloudability.com/v3"
     
     # Authentication
-    AUTH_TYPE: str = os.getenv("CLOUDABILITY_AUTH_TYPE", "basic")  # basic or bearer
+    AUTH_TYPE: str = os.getenv("CLOUDABILITY_AUTH_TYPE", "basic")  # basic, bearer, or opentoken
+    
+    # Enhanced Access Administration (public/private key pair)
+    PUBLIC_KEY: Optional[str] = os.getenv("CLOUDABILITY_PUBLIC_KEY")  # keyAccess
+    PRIVATE_KEY: Optional[str] = os.getenv("CLOUDABILITY_PRIVATE_KEY")  # keySecret
+    ENVIRONMENT_ID: Optional[str] = os.getenv("CLOUDABILITY_ENVIRONMENT_ID")
+    
+    # Frontdoor URLs for key pair authentication
+    FRONTDOOR_URL: str = os.getenv(
+        "CLOUDABILITY_FRONTDOOR_URL",
+        "https://frontdoor.apptio.com"
+    )
+    FRONTDOOR_EU_URL: str = "https://frontdoor-eu.apptio.com"
+    FRONTDOOR_APAC_URL: str = "https://frontdoor-au.apptio.com"
     
     # Default values
     DEFAULT_LIMIT: int = 50
@@ -39,10 +55,24 @@ class Config:
     @classmethod
     def validate(cls) -> None:
         """Validate configuration"""
-        if not cls.API_KEY:
+        # Check if using Enhanced Access Administration (public/private key)
+        if cls.PUBLIC_KEY and cls.PRIVATE_KEY:
+            if not cls.PUBLIC_KEY or not cls.PRIVATE_KEY:
+                raise ValueError(
+                    "Both CLOUDABILITY_PUBLIC_KEY and CLOUDABILITY_PRIVATE_KEY "
+                    "are required for Enhanced Access Administration authentication."
+                )
+            # Environment ID is recommended but not always required
+            if not cls.ENVIRONMENT_ID:
+                logger.warning(
+                    "CLOUDABILITY_ENVIRONMENT_ID not set. Some operations may require it."
+                )
+        # Otherwise, check for legacy API key
+        elif not cls.API_KEY:
             raise ValueError(
-                "CLOUDABILITY_API_KEY environment variable is required. "
-                "Set it in your .env file or environment."
+                "Authentication credentials required. Set either:\n"
+                "  - CLOUDABILITY_API_KEY (for basic/bearer auth), or\n"
+                "  - CLOUDABILITY_PUBLIC_KEY and CLOUDABILITY_PRIVATE_KEY (for Enhanced Access Administration)"
             )
     
     @classmethod

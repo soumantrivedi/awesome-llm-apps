@@ -14,6 +14,7 @@ from .api_client import CloudabilityAPIClient
 from .api_client_extended import ExtendedCloudabilityAPIClient
 from .framework.tool_base import get_registry
 from .utils import export_to_csv, export_to_json, get_default_date_range
+from .tool_status import get_tool_status, ToolStatus
 
 # Import all tools to trigger registration
 from . import tools  # noqa: F401
@@ -39,15 +40,23 @@ class CloudabilityMCPServer:
         self,
         api_key: Optional[str] = None,
         base_url: Optional[str] = None,
-        auth_type: Optional[str] = None
+        auth_type: Optional[str] = None,
+        public_key: Optional[str] = None,
+        private_key: Optional[str] = None,
+        environment_id: Optional[str] = None,
+        frontdoor_url: Optional[str] = None
     ):
         """
         Initialize Cloudability MCP Server
         
         Args:
-            api_key: Cloudability API key
+            api_key: Cloudability API key (for basic/bearer auth)
             base_url: Base URL for API
-            auth_type: Authentication type ('basic' or 'bearer')
+            auth_type: Authentication type ('basic', 'bearer', or 'opentoken')
+            public_key: Public key (keyAccess) for Enhanced Access Administration
+            private_key: Private key (keySecret) for Enhanced Access Administration
+            environment_id: Environment ID for OpenToken auth
+            frontdoor_url: Frontdoor URL for key pair authentication
         """
         Config.validate()
         
@@ -55,7 +64,11 @@ class CloudabilityMCPServer:
         self.api_client = ExtendedCloudabilityAPIClient(
             api_key=api_key,
             base_url=base_url,
-            auth_type=auth_type
+            auth_type=auth_type,
+            public_key=public_key,
+            private_key=private_key,
+            environment_id=environment_id,
+            frontdoor_url=frontdoor_url
         )
         
         # Get tool registry and set API client for all tools
@@ -191,6 +204,21 @@ class CloudabilityMCPServer:
             Tool execution result
         """
         try:
+            # Check tool status
+            tool_status = get_tool_status(tool_name)
+            
+            if tool_status == ToolStatus.NOT_AVAILABLE:
+                return {
+                    "success": False,
+                    "error": f"Tool '{tool_name}' is not available. The API endpoint may not exist in Cloudability API v3.",
+                    "status": "not_available",
+                    "tool": tool_name,
+                    "suggestion": "Check Cloudability API v3 documentation for alternative endpoints. Use 'list_views' or 'list_budgets' for verified working tools."
+                }
+            
+            if tool_status == ToolStatus.EXPERIMENTAL:
+                logger.info(f"Tool '{tool_name}' is experimental - attempting API call with current parameters.")
+            
             # Get tool from registry
             tool = self.registry.get_tool(tool_name)
             if not tool:
@@ -207,6 +235,10 @@ class CloudabilityMCPServer:
             
             # Execute tool
             result = await tool.execute(arguments)
+            
+            # Add tool status to result for transparency
+            if "status" not in result:
+                result["tool_status"] = tool_status.value
             
             # Handle CSV export if needed
             export_format = arguments.get("export_format") or result.get("export_format")
@@ -251,16 +283,33 @@ class CloudabilityMCPServer:
 
 async def main():
     """Main entry point for MCP server"""
-    # Get API key from environment
+    # Get authentication credentials from environment
+    # Support both legacy API key and Enhanced Access Administration (public/private key)
     api_key = Config.API_KEY
+    public_key = Config.PUBLIC_KEY
+    private_key = Config.PRIVATE_KEY
     base_url = Config.BASE_URL
+    auth_type = Config.AUTH_TYPE
+    environment_id = Config.ENVIRONMENT_ID
+    frontdoor_url = Config.FRONTDOOR_URL
     
-    if not api_key:
-        logger.error("CLOUDABILITY_API_KEY environment variable is required")
+    # Validate configuration - Config.validate() will check for required credentials
+    try:
+        Config.validate()
+    except ValueError as e:
+        logger.error(f"Configuration error: {e}")
         sys.exit(1)
     
-    # Initialize server
-    server = CloudabilityMCPServer(api_key=api_key, base_url=base_url)
+    # Initialize server with appropriate authentication
+    server = CloudabilityMCPServer(
+        api_key=api_key,
+        base_url=base_url,
+        auth_type=auth_type,
+        public_key=public_key,
+        private_key=private_key,
+        environment_id=environment_id,
+        frontdoor_url=frontdoor_url
+    )
     
     # Read from stdin, write to stdout
     for line in sys.stdin:

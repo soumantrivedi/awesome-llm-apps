@@ -1,0 +1,215 @@
+{
+  "working": [
+    {
+      "test_name": "list_views",
+      "params": {
+        "limit": 10
+      },
+      "success": true
+    },
+    {
+      "test_name": "list_budgets",
+      "params": {},
+      "success": true
+    },
+    {
+      "test_name": "list_views",
+      "params": {},
+      "success": true
+    }
+  ],
+  "failing": [
+    {
+      "test_name": "get_amortized_costs (defaults)",
+      "params": {},
+      "success": false
+    },
+    {
+      "test_name": "get_amortized_costs (dates only)",
+      "params": {
+        "start_date": "2025-10-20",
+        "end_date": "2025-11-19"
+      },
+      "success": false
+    },
+    {
+      "test_name": "get_amortized_costs (product_id filter)",
+      "params": {
+        "filters": {
+          "product_id": "K8s"
+        }
+      },
+      "success": false
+    },
+    {
+      "test_name": "get_amortized_costs (view only)",
+      "params": {
+        "view_name": "Product-12170-Internal Engagement Products"
+      },
+      "success": false
+    },
+    {
+      "test_name": "get_amortized_costs (multiple dimensions)",
+      "params": {
+        "dimensions": [
+          "service",
+          "vendor"
+        ]
+      },
+      "success": false
+    },
+    {
+      "test_name": "get_amortized_costs (daily granularity)",
+      "params": {
+        "granularity": "daily"
+      },
+      "success": false
+    },
+    {
+      "test_name": "get_cost_report_by_view (basic)",
+      "params": {
+        "view_name": "Product-12170-Internal Engagement Products"
+      },
+      "success": false
+    },
+    {
+      "test_name": "get_cost_report_by_view (with limit)",
+      "params": {
+        "view_name": "Product-12170-Internal Engagement Products",
+        "limit": 10
+      },
+      "success": false
+    },
+    {
+      "test_name": "analyze_container_cost_allocation",
+      "params": {},
+      "success": false
+    },
+    {
+      "test_name": "create_budget",
+      "params": {
+        "name": "test",
+        "basis": "test",
+        "view_id": "test",
+        "months": []
+      },
+      "success": false
+    },
+    {
+      "test_name": "explore_tags",
+      "params": {
+        "tag_key": "test"
+      },
+      "success": false
+    },
+    {
+      "test_name": "export_cost_report",
+      "params": {
+        "start_date": "2025-11-19",
+        "end_date": "2025-11-19"
+      },
+      "success": false
+    },
+    {
+      "test_name": "get_amortized_costs",
+      "params": {},
+      "success": false
+    },
+    {
+      "test_name": "get_anomaly_detection",
+      "params": {},
+      "success": false
+    },
+    {
+      "test_name": "get_available_measures",
+      "params": {},
+      "success": false
+    },
+    {
+      "test_name": "get_budget",
+      "params": {
+        "budget_id": "test"
+      },
+      "success": false
+    },
+    {
+      "test_name": "get_container_costs",
+      "params": {},
+      "success": false
+    },
+    {
+      "test_name": "get_container_resource_usage",
+      "params": {},
+      "success": false
+    },
+    {
+      "test_name": "get_cost_report_by_view",
+      "params": {
+        "view_name": "test"
+      },
+      "success": false
+    },
+    {
+      "test_name": "get_cost_report_with_filters",
+      "params": {
+        "view_name": "test"
+      },
+      "success": false
+    },
+    {
+      "test_name": "get_filter_operators",
+      "params": {},
+      "success": false
+    },
+    {
+      "test_name": "get_spending_estimate",
+      "params": {},
+      "success": false
+    },
+    {
+      "test_name": "get_spending_forecast",
+      "params": {},
+      "success": false
+    },
+    {
+      "test_name": "list_available_tags",
+      "params": {},
+      "success": false
+    },
+    {
+      "test_name": "update_budget",
+      "params": {
+        "budget_id": "test"
+      },
+      "success": false
+    }
+  ],
+  "errors": {
+    "get_amortized_costs (defaults)": "422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly",
+    "get_amortized_costs (dates only)": "422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly",
+    "get_amortized_costs (product_id filter)": "422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly&filter=product_id%3D%3DK8s",
+    "get_amortized_costs (view only)": "422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly&view=298449",
+    "get_amortized_costs (multiple dimensions)": "422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service%2Cvendor&metrics=total_amortized_cost&granularity=monthly",
+    "get_amortized_costs (daily granularity)": "422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost",
+    "get_cost_report_by_view (basic)": "400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data",
+    "get_cost_report_by_view (with limit)": "400 Client Error: Bad Request for url: https://api.cloudability.com/v3/views/298449/data?limit=10",
+    "analyze_container_cost_allocation": "422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=cluster_name%2Cnamespace&metrics=total_cost&filter=product_id%3D%3DK8s",
+    "create_budget": "422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/budgets",
+    "explore_tags": "422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=tag%3Atest%2Cvendor%2Cservice&metrics=total_amortized_cost&filter=tag%3Atest%3D%3D%2A",
+    "export_cost_report": "422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-11-19&end=2025-11-19&dimensions=service&metrics=total_amortized_cost",
+    "get_amortized_costs": "422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=service&metrics=total_amortized_cost&granularity=monthly",
+    "get_anomaly_detection": "422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=vendor%2Cservice%2Caccount_id&metrics=total_amortized_cost&anomaly_detection=true&min_change_percent=10.0",
+    "get_available_measures": "404 Client Error: Not Found for url: https://api.cloudability.com/v3/reporting/measures",
+    "get_budget": "422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/budgets/test",
+    "get_container_costs": "422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&dimensions=cluster_name%2Cnamespace&metrics=total_cost&filter=product_id%3D%3DK8s",
+    "get_container_resource_usage": "422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/reporting/cost/run?start=2025-10-20&end=2025-11-19&metrics=cpu%2Freserved%2Cmemory%2Freserved_rss",
+    "get_cost_report_by_view": "View 'test' not found",
+    "get_cost_report_with_filters": "View 'test' not found",
+    "get_filter_operators": "404 Client Error: Not Found for url: https://api.cloudability.com/v3/reporting/operators",
+    "get_spending_estimate": "404 Client Error: Not Found for url: https://api.cloudability.com/v3/forecast/estimate?view_id=0&basis=cash",
+    "get_spending_forecast": "404 Client Error: Not Found for url: https://api.cloudability.com/v3/forecast/forecast?view_id=0&basis=cash&months_back=6&months_forward=12&use_current_estimate=True&remove_one_time_charges=True",
+    "list_available_tags": "404 Client Error: Not Found for url: https://api.cloudability.com/v3/reporting/dimensions?dimension_type=tag",
+    "update_budget": "422 Client Error: Unprocessable Entity for url: https://api.cloudability.com/v3/budgets/test"
+  },
+  "timestamp": "2025-11-19T15:10:56.441882"
+}

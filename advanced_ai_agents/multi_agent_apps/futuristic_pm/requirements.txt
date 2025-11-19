@@ -1,0 +1,13 @@
+streamlit==1.41.1
+pyautogen>=0.2,<0.5
+requests>=2.31.0
+python-dateutil>=2.8.2
+atlassian-python-api>=3.41.0
+agno>=0.1.0
+mcp>=0.1.0
+python-dotenv>=1.0.0
+cryptography>=41.0.0
+httpx>=0.25.0
+sseclient-py>=1.8.0
+nest-asyncio>=1.5.0
+

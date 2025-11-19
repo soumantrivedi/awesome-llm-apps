@@ -25,7 +25,15 @@ class ListBudgetsTool(CloudabilityTool):
         from ..api_client_extended import ExtendedCloudabilityAPIClient
         api = self.require_api_client()
         if not isinstance(api, ExtendedCloudabilityAPIClient):
-            api = ExtendedCloudabilityAPIClient(api_key=api.api_key, base_url=api.base_url)
+            api = ExtendedCloudabilityAPIClient(
+                api_key=api.api_key,
+                base_url=api.base_url,
+                auth_type=api.auth_type,
+                public_key=api.public_key,
+                private_key=api.private_key,
+                environment_id=api.environment_id,
+                frontdoor_url=api.frontdoor_url
+            )
         return api.list_budgets()
 
 
@@ -51,7 +59,15 @@ class GetBudgetTool(CloudabilityTool):
         from ..api_client_extended import ExtendedCloudabilityAPIClient
         api = self.require_api_client()
         if not isinstance(api, ExtendedCloudabilityAPIClient):
-            api = ExtendedCloudabilityAPIClient(api_key=api.api_key, base_url=api.base_url)
+            api = ExtendedCloudabilityAPIClient(
+                api_key=api.api_key,
+                base_url=api.base_url,
+                auth_type=api.auth_type,
+                public_key=api.public_key,
+                private_key=api.private_key,
+                environment_id=api.environment_id,
+                frontdoor_url=api.frontdoor_url
+            )
         return api.get_budget(budget_id=args.get("budget_id"))
 
 
@@ -90,7 +106,15 @@ class CreateBudgetTool(CloudabilityTool):
         from ..api_client_extended import ExtendedCloudabilityAPIClient
         api = self.require_api_client()
         if not isinstance(api, ExtendedCloudabilityAPIClient):
-            api = ExtendedCloudabilityAPIClient(api_key=api.api_key, base_url=api.base_url)
+            api = ExtendedCloudabilityAPIClient(
+                api_key=api.api_key,
+                base_url=api.base_url,
+                auth_type=api.auth_type,
+                public_key=api.public_key,
+                private_key=api.private_key,
+                environment_id=api.environment_id,
+                frontdoor_url=api.frontdoor_url
+            )
         return api.create_budget(
             name=args.get("name"),
             basis=args.get("basis"),
@@ -133,7 +157,15 @@ class UpdateBudgetTool(CloudabilityTool):
         from ..api_client_extended import ExtendedCloudabilityAPIClient
         api = self.require_api_client()
         if not isinstance(api, ExtendedCloudabilityAPIClient):
-            api = ExtendedCloudabilityAPIClient(api_key=api.api_key, base_url=api.base_url)
+            api = ExtendedCloudabilityAPIClient(
+                api_key=api.api_key,
+                base_url=api.base_url,
+                auth_type=api.auth_type,
+                public_key=api.public_key,
+                private_key=api.private_key,
+                environment_id=api.environment_id,
+                frontdoor_url=api.frontdoor_url
+            )
         return api.update_budget(
             budget_id=args.get("budget_id"),
             months=args.get("months"),
