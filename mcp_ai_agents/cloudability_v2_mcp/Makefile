@@ -100,7 +100,7 @@ verify:
 		echo "✗ Virtual environment not found. Run 'make install' first."; \
 		exit 1; \
 	fi
-	@./venv/bin/python3 -c "import sys; sys.path.insert(0, 'src'); from main import CloudabilityV2MCPServer; print('✓ Import successful')" || (echo "✗ Import failed" && exit 1)
-	@./venv/bin/python3 -c "import sys; sys.path.insert(0, 'src'); from main import CloudabilityV2MCPServer; server = CloudabilityV2MCPServer(); print('✓ Server initialized'); tools = server.get_tools(); print(f'✓ Found {len(tools)} tools')" || (echo "✗ Server initialization failed" && exit 1)
+	@./venv/bin/python3 -c "import sys; sys.path.insert(0, '.'); from src.main import CloudabilityV2MCPServer; print('✓ Import successful')" || (echo "✗ Import failed" && exit 1)
+	@./venv/bin/python3 -c "import sys; sys.path.insert(0, '.'); from src.main import CloudabilityV2MCPServer; server = CloudabilityV2MCPServer(); print('✓ Server initialized'); tools = server.get_tools(); print(f'✓ Found {len(tools)} tools')" || (echo "✗ Server initialization failed" && exit 1)
 	@echo "✓ Installation verified"
 
