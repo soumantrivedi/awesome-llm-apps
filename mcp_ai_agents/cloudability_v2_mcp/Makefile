@@ -15,7 +15,7 @@ help:
 
 install:
 	@echo "Installing dependencies..."
-	pip install -r requirements.txt
+	@python3 -m pip install -r requirements.txt
 	@echo "✓ Dependencies installed"
 
 register:
@@ -57,12 +57,12 @@ secrets:
 
 test:
 	@echo "Running test suite..."
-	@python tests/test_tools.py
+	@python3 tests/test_tools.py
 	@echo "✓ Tests completed"
 
 test-examples:
 	@echo "Running example scripts..."
-	@python examples/test_mcp_server.py
+	@python3 examples/test_mcp_server.py
 	@echo "✓ Examples completed"
 
 docs:
@@ -91,7 +91,7 @@ clean:
 
 verify:
 	@echo "Verifying installation..."
-	@python -c "import sys; sys.path.insert(0, 'src'); from main import CloudabilityV2MCPServer; print('✓ Import successful')" || (echo "✗ Import failed" && exit 1)
-	@python -c "import sys; sys.path.insert(0, 'src'); from main import CloudabilityV2MCPServer; server = CloudabilityV2MCPServer(); print('✓ Server initialized'); tools = server.get_tools(); print(f'✓ Found {len(tools)} tools')" || (echo "✗ Server initialization failed" && exit 1)
+	@python3 -c "import sys; sys.path.insert(0, 'src'); from main import CloudabilityV2MCPServer; print('✓ Import successful')" || (echo "✗ Import failed" && exit 1)
+	@python3 -c "import sys; sys.path.insert(0, 'src'); from main import CloudabilityV2MCPServer; server = CloudabilityV2MCPServer(); print('✓ Server initialized'); tools = server.get_tools(); print(f'✓ Found {len(tools)} tools')" || (echo "✗ Server initialization failed" && exit 1)
 	@echo "✓ Installation verified"
 
