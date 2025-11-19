@@ -23,33 +23,58 @@ register:
 	@echo ""
 	@echo "Add the following to your Cursor IDE MCP settings (usually in ~/.cursor/mcp.json or Cursor settings):"
 	@echo ""
-	@echo '{'
-	@echo '  "mcpServers": {'
-	@echo '    "cloudability-v2": {'
-	@echo '      "command": "python",'
-	@echo '      "args": ["$(shell pwd)/src/main.py"],'
-	@echo '      "env": {'
-	@echo '        "CLOUDABILITY_API_KEY": "your-api-key-here"'
-	@echo '      }'
-	@echo '    }'
-	@echo '  }'
-	@echo '}'
+	@if [ -d "venv/bin" ]; then \
+		PYTHON_CMD="$(shell pwd)/venv/bin/python3"; \
+	else \
+		PYTHON_CMD="python3"; \
+	fi; \
+	SERVER_PATH="$(shell pwd)/cloudability_v2_mcp_server.py"; \
+	echo '{'; \
+	echo '  "mcpServers": {'; \
+	echo '    "cloudability-v2": {'; \
+	echo '      "command": "'$$PYTHON_CMD'",'; \
+	echo '      "args": ['; \
+	echo '        "-u",'; \
+	echo '        "'$$SERVER_PATH'"'; \
+	echo '      ],'; \
+	echo '      "env": {'; \
+	echo '        "CLOUDABILITY_API_KEY": "your-api-key-here",'; \
+	echo '        "CLOUDABILITY_AUTH_TYPE": "basic",'; \
+	echo '        "CLOUDABILITY_BASE_URL": "https://api.cloudability.com/v3",'; \
+	echo '        "PYTHONUNBUFFERED": "1"'; \
+	echo '      }'; \
+	echo '    }'; \
+	echo '  }'; \
+	echo '}'
 	@echo ""
 	@echo "Or if using Enhanced Access Administration:"
 	@echo ""
-	@echo '{'
-	@echo '  "mcpServers": {'
-	@echo '    "cloudability-v2": {'
-	@echo '      "command": "python",'
-	@echo '      "args": ["$(shell pwd)/src/main.py"],'
-	@echo '      "env": {'
-	@echo '        "CLOUDABILITY_PUBLIC_KEY": "your-public-key-here",'
-	@echo '        "CLOUDABILITY_PRIVATE_KEY": "your-private-key-here",'
-	@echo '        "CLOUDABILITY_ENVIRONMENT_ID": "your-environment-id-here"'
-	@echo '      }'
-	@echo '    }'
-	@echo '  }'
-	@echo '}'
+	@if [ -d "venv/bin" ]; then \
+		PYTHON_CMD="$(shell pwd)/venv/bin/python3"; \
+	else \
+		PYTHON_CMD="python3"; \
+	fi; \
+	SERVER_PATH="$(shell pwd)/cloudability_v2_mcp_server.py"; \
+	echo '{'; \
+	echo '  "mcpServers": {'; \
+	echo '    "cloudability-v2": {'; \
+	echo '      "command": "'$$PYTHON_CMD'",'; \
+	echo '      "args": ['; \
+	echo '        "-u",'; \
+	echo '        "'$$SERVER_PATH'"'; \
+	echo '      ],'; \
+	echo '      "env": {'; \
+	echo '        "CLOUDABILITY_PUBLIC_KEY": "your-public-key-here",'; \
+	echo '        "CLOUDABILITY_PRIVATE_KEY": "your-private-key-here",'; \
+	echo '        "CLOUDABILITY_ENVIRONMENT_ID": "your-environment-id-here",'; \
+	echo '        "CLOUDABILITY_AUTH_TYPE": "opentoken",'; \
+	echo '        "CLOUDABILITY_BASE_URL": "https://api.cloudability.com/v3",'; \
+	echo '        "CLOUDABILITY_FRONTDOOR_URL": "https://frontdoor.apptio.com",'; \
+	echo '        "PYTHONUNBUFFERED": "1"'; \
+	echo '      }'; \
+	echo '    }'; \
+	echo '  }'; \
+	echo '}'
 	@echo ""
 	@echo "Note: Replace the placeholder values with your actual credentials"
 	@echo "✓ Registration instructions displayed"
