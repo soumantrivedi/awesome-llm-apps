@@ -120,6 +120,7 @@ async def test_get_amortized_costs_vendor(results: TestResults):
         
         server = CloudabilityV2MCPServer()
         result = await server.call_tool("get_amortized_costs", {
+            "view_name": Config.DEFAULT_VIEW,  # Use default view for testing
             "start_date": start_date.strftime("%Y-%m-%d"),
             "end_date": end_date.strftime("%Y-%m-%d"),
             "dimensions": ["vendor"],
@@ -150,6 +151,7 @@ async def test_get_amortized_costs_multiple_dimensions(results: TestResults):
         
         server = CloudabilityV2MCPServer()
         result = await server.call_tool("get_amortized_costs", {
+            "view_name": Config.DEFAULT_VIEW,  # Use default view for testing
             "start_date": start_date.strftime("%Y-%m-%d"),
             "end_date": end_date.strftime("%Y-%m-%d"),
             "dimensions": ["vendor", "region"],  # Use verified working dimensions
@@ -180,6 +182,7 @@ async def test_get_amortized_costs_region(results: TestResults):
         
         server = CloudabilityV2MCPServer()
         result = await server.call_tool("get_amortized_costs", {
+            "view_name": Config.DEFAULT_VIEW,  # Use default view for testing
             "start_date": start_date.strftime("%Y-%m-%d"),
             "end_date": end_date.strftime("%Y-%m-%d"),
             "dimensions": ["region"],
@@ -210,6 +213,7 @@ async def test_get_amortized_costs_invalid_dimension(results: TestResults):
         
         server = CloudabilityV2MCPServer()
         result = await server.call_tool("get_amortized_costs", {
+            "view_name": Config.DEFAULT_VIEW,  # Use default view for testing
             "start_date": start_date.strftime("%Y-%m-%d"),
             "end_date": end_date.strftime("%Y-%m-%d"),
             "dimensions": ["cluster_name"],  # Invalid dimension - should be rejected
@@ -245,6 +249,7 @@ async def test_get_amortized_costs_csv(results: TestResults):
         
         server = CloudabilityV2MCPServer()
         result = await server.call_tool("get_amortized_costs", {
+            "view_name": Config.DEFAULT_VIEW,  # Use default view for testing
             "start_date": start_date.strftime("%Y-%m-%d"),
             "end_date": end_date.strftime("%Y-%m-%d"),
             "dimensions": ["vendor"],

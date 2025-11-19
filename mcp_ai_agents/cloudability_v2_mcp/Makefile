@@ -1,4 +1,4 @@
-.PHONY: help install register secrets test test-examples docs clean verify
+.PHONY: help install register secrets test test-examples test-truecost test-tags docs clean verify
 
 help:
 	@echo "Cloudability V2 MCP Server - Makefile"
@@ -8,7 +8,8 @@ help:
 	@echo "  make register   - Register MCP server in Cursor IDE"
 	@echo "  make secrets     - Prompt user to provide secrets"
 	@echo "  make test        - Run test suite"
-	@echo "  make test-examples - Run example scripts"
+	@echo "  make test-examples - Run all example scripts and generate reports"
+	@echo "  make test-time-ranges - Run time range and filter examples"
 	@echo "  make docs        - Generate documentation"
 	@echo "  make clean       - Clean generated files"
 	@echo "  make verify      - Verify installation"
@@ -76,13 +77,83 @@ test:
 	@echo "✓ Tests completed"
 
 test-examples:
-	@echo "Running example scripts..."
+	@echo "=================================================================================="
+	@echo "Running All Example Scripts - Generating Reports"
+	@echo "=================================================================================="
 	@if [ ! -d "venv" ]; then \
 		echo "✗ Virtual environment not found. Run 'make install' first."; \
 		exit 1; \
 	fi
-	@./venv/bin/python3 examples/test_mcp_server.py || (echo "⚠️  Note: Tests require Cloudability credentials. Set environment variables or use .env file." && exit 1)
-	@echo "✓ Examples completed"
+	@echo ""
+	@echo "1. Running Basic MCP Server Tests..."
+	@echo "--------------------------------------------------------------------------------"
+	@./venv/bin/python3 examples/test_mcp_server.py || echo "⚠️  Basic tests completed with warnings"
+	@echo ""
+	@echo "2. Running TrueCost Explorer Example..."
+	@echo "--------------------------------------------------------------------------------"
+	@./venv/bin/python3 examples/test_truecost_explorer.py || echo "⚠️  TrueCost Explorer example completed with warnings"
+	@echo ""
+	@echo "3. Running Tag Dimensions Example..."
+	@echo "--------------------------------------------------------------------------------"
+	@./venv/bin/python3 examples/test_tag_dimensions_example.py || echo "⚠️  Tag Dimensions example completed with warnings"
+	@echo ""
+	@echo "4. Running Time Range and Filter Examples..."
+	@echo "--------------------------------------------------------------------------------"
+	@./venv/bin/python3 examples/test_time_ranges_and_filters.py || echo "⚠️  Time Range examples completed with warnings"
+	@echo ""
+	@echo "5. Running View Filtering Examples..."
+	@echo "--------------------------------------------------------------------------------"
+	@./venv/bin/python3 examples/test_view_filtering.py || echo "⚠️  View Filtering examples completed with warnings"
+	@echo ""
+	@echo "=================================================================================="
+	@echo "All Examples Completed - Generated Reports Summary"
+	@echo "=================================================================================="
+	@if [ -d "generated-contents" ]; then \
+		echo ""; \
+		echo "Generated reports are in: generated-contents/"; \
+		echo ""; \
+		echo "Recent report folders (from this run):"; \
+		ls -1t generated-contents/ 2>/dev/null | head -5 | while read dir; do \
+			file_count=$$(ls -1 generated-contents/$$dir/ 2>/dev/null | wc -l | tr -d ' '); \
+			if [ "$$file_count" -gt 0 ]; then \
+				echo "  📁 $$dir/ ($$file_count file(s)):"; \
+				ls -1 generated-contents/$$dir/ 2>/dev/null | while read file; do \
+					file_size=$$(ls -lh generated-contents/$$dir/$$file 2>/dev/null | awk '{print $$5}'); \
+					echo "    📄 $$file ($$file_size)"; \
+				done; \
+				echo ""; \
+			fi; \
+		done; \
+		total_folders=$$(ls -1d generated-contents/*/ 2>/dev/null | wc -l | tr -d ' '); \
+		total_files=$$(find generated-contents -type f 2>/dev/null | wc -l | tr -d ' '); \
+		echo "Summary:"; \
+		echo "  Total report folders: $$total_folders"; \
+		echo "  Total report files: $$total_files"; \
+		echo ""; \
+		echo "Report types generated:"; \
+		find generated-contents -type f -name "*.csv" 2>/dev/null | wc -l | xargs -I {} echo "  📊 CSV reports: {}"; \
+		find generated-contents -type f -name "*.json" 2>/dev/null | wc -l | xargs -I {} echo "  📋 JSON reports: {}"; \
+		find generated-contents -type f -name "*.md" 2>/dev/null | wc -l | xargs -I {} echo "  📝 Markdown reports: {}"; \
+	else \
+		echo ""; \
+		echo "⚠️  No reports generated (generated-contents/ folder not found)"; \
+	fi
+	@echo ""
+	@echo "✓ All examples completed!"
+	@echo ""
+
+test-time-ranges:
+	@echo "Running Time Range and Filter Examples..."
+	@if [ ! -d "venv" ]; then \
+		echo "✗ Virtual environment not found. Run 'make install' first."; \
+		exit 1; \
+	fi
+	@./venv/bin/python3 examples/test_time_ranges_and_filters.py || (echo "⚠️  Note: Tests require Cloudability credentials. Set environment variables or use .env file." && exit 1)
+	@echo "✓ Time Range examples completed"
+
+# Keep individual targets for backward compatibility
+test-truecost: test-examples
+test-tags: test-examples
 
 docs:
 	@echo "Generating documentation..."

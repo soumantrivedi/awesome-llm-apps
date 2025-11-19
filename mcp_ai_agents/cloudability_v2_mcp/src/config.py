@@ -49,6 +49,9 @@ class Config:
     MAX_LIMIT: int = 250
     DEFAULT_TIMEOUT: int = 30
     
+    # Default view for testing (recommended for all cost reports)
+    DEFAULT_VIEW: str = "Product-12284-OFT - self-managed Kubernetes"
+    
     # MCP Protocol
     MCP_VERSION: str = "2024-11-05"
     
@@ -70,7 +73,10 @@ class Config:
         "enhanced_service_name",     # Enhanced service name with details - ✅ Works
         "account_id",                # Cloud account identifier - ✅ Works
         "region",                    # Geographic region (us-east-1, etc.) - ✅ Works
-        "date"                       # Date dimension for time-series - ✅ Works
+        "date",                      # Date dimension for time-series - ✅ Works
+        # Tag dimensions (tag1-tag10) - may work with amortized costs
+        "tag1", "tag2", "tag3", "tag4", "tag5",
+        "tag6", "tag7", "tag8", "tag9", "tag10"
     ]
     
     @classmethod

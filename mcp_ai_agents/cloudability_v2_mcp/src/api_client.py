@@ -170,6 +170,35 @@ class CloudabilityAPIClient:
                 status_code=getattr(e.response, 'status_code', None) if hasattr(e, 'response') else None
             )
     
+    def get_view_by_name(self, view_name: str) -> Optional[Dict]:
+        """
+        Get view by name (searches in view list)
+        
+        Args:
+            view_name: Name of the view to find
+            
+        Returns:
+            View dictionary if found, None otherwise
+        """
+        try:
+            # Get all views (with reasonable limit)
+            views_result = self.list_views(limit=250)
+            if not views_result.get("success"):
+                return None
+            
+            views = views_result.get("views", [])
+            for view in views:
+                # Check multiple possible name fields
+                if (view.get("title") == view_name or
+                    view.get("name") == view_name or
+                    view.get("displayName") == view_name or
+                    str(view.get("id")) == view_name):
+                    return view
+            return None
+        except Exception as e:
+            logger.error(f"Failed to get view by name: {e}")
+            return None
+    
     # ========== Budget Operations ==========
     
     def list_budgets(self) -> Dict:
@@ -264,9 +293,17 @@ class CloudabilityAPIClient:
             
             # Add view restriction if provided
             if view_name:
-                # Note: View restriction may need to be handled differently
-                # For now, we'll add it as a filter if the API supports it
-                params["view"] = view_name
+                # Look up view by name to get view ID
+                view = self.get_view_by_name(view_name)
+                if view:
+                    # Use view ID (preferred) or view name
+                    view_id = view.get("id") or view.get("view_id") or view_name
+                    params["view"] = str(view_id)
+                else:
+                    # If view not found, try using the name directly
+                    # API might accept view name or ID
+                    params["view"] = view_name
+                    logger.warning(f"View '{view_name}' not found in view list, using name directly")
             
             # Set headers for CSV export
             headers = {}
@@ -289,6 +326,7 @@ class CloudabilityAPIClient:
                     "end_date": end_date,
                     "dimensions": dimensions or ["vendor"],
                     "granularity": granularity,
+                    "currency": "USD",
                     "csv_data": csv_data,
                     "export_format": "csv"
                 }
@@ -303,6 +341,7 @@ class CloudabilityAPIClient:
                     "end_date": end_date,
                     "dimensions": dimensions or ["vendor"],
                     "granularity": granularity,
+                    "currency": "USD",
                     "total_records": len(result_data),
                     "data": result_data,
                     "export_format": "json"

@@ -46,8 +46,23 @@ def build_filter_list(filters: Dict[str, str]) -> List[str]:
         if not key or not value:
             continue
             
+        # Handle =@ operator (wildcard/contains) - can be passed directly
+        if value.startswith('=@'):
+            # Direct =@ operator (e.g., "=@mvp01")
+            filter_list.append(f"{key}{value}")
+        # Handle regex patterns for cluster_name (e.g., "mvp01.*" or ".*mvp01.*")
+        elif key == "cluster_name" and ('*' in value or value.startswith('.*') or value.endswith('.*')):
+            # Convert regex-like patterns to wildcard format
+            # "mvp01.*" -> "mvp01*" -> "=@mvp01"
+            # ".*mvp01.*" -> "*mvp01*" -> "=@mvp01"
+            clean_value = value.replace('.*', '*').replace('*', '')
+            if clean_value:
+                filter_list.append(f"{key}=@{clean_value}")
+            else:
+                # Empty pattern, skip
+                continue
         # Handle wildcard patterns (e.g., "ici*" -> "namespace=@ici")
-        if '*' in value:
+        elif '*' in value:
             clean_value = value.replace('*', '')
             filter_list.append(f"{key}=@{clean_value}")
         elif value.startswith('*'):
@@ -79,6 +94,62 @@ def get_default_date_range(days: int = 30) -> tuple:
     end_date = datetime.now()
     start_date = end_date - timedelta(days=days)
     return start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d")
+
+
+def get_last_month_range() -> tuple:
+    """
+    Get date range for last month (previous calendar month)
+    
+    Returns:
+        Tuple of (start_date, end_date) in YYYY-MM-DD format
+    """
+    today = datetime.now()
+    # First day of current month
+    first_day_current = today.replace(day=1)
+    # Last day of previous month
+    last_day_previous = first_day_current - timedelta(days=1)
+    # First day of previous month
+    first_day_previous = last_day_previous.replace(day=1)
+    
+    start_date = first_day_previous.strftime("%Y-%m-%d")
+    end_date = last_day_previous.strftime("%Y-%m-%d")
+    
+    return start_date, end_date
+
+
+def get_last_n_months_range(months: int = 2) -> tuple:
+    """
+    Get date range for last N months (including current month)
+    
+    Args:
+        months: Number of months to go back (default: 2)
+        
+    Returns:
+        Tuple of (start_date, end_date) in YYYY-MM-DD format
+    """
+    today = datetime.now()
+    # First day of current month
+    first_day_current = today.replace(day=1)
+    
+    # Calculate start date (N months ago)
+    if months == 1:
+        # Last month only
+        return get_last_month_range()
+    else:
+        # Calculate months back manually to avoid dateutil dependency
+        start_year = first_day_current.year
+        start_month = first_day_current.month
+        
+        # Subtract months
+        for _ in range(months - 1):
+            start_month -= 1
+            if start_month < 1:
+                start_month = 12
+                start_year -= 1
+        
+        start_date = datetime(start_year, start_month, 1).strftime("%Y-%m-%d")
+        end_date = today.strftime("%Y-%m-%d")
+        return start_date, end_date
 
 
 def format_error_response(error: Exception, status_code: Optional[int] = None) -> Dict:
@@ -143,7 +214,7 @@ def data_to_csv_string(data: List[Dict]) -> str:
 
 def export_to_csv(data: List[Dict], file_path: str) -> str:
     """
-    Export data to CSV file
+    Export data to CSV file with USD currency indicators for cost fields
     
     Args:
         data: List of dictionaries
@@ -152,7 +223,14 @@ def export_to_csv(data: List[Dict], file_path: str) -> str:
     Returns:
         File path where data was written
     """
+    # Get all unique keys from all dictionaries
+    # If data is empty, try to infer fieldnames from common cost report fields
     if not data:
+        # Create empty file with header for common cost dimensions
+        # This handles cases where API returns only header row
+        with open(file_path, 'w', newline='', encoding='utf-8') as f:
+            # Write a minimal header - will be replaced if we have actual data structure
+            f.write("total_amortized_cost_usd\n")
         return file_path
     
     # Get all unique keys from all dictionaries
@@ -161,17 +239,36 @@ def export_to_csv(data: List[Dict], file_path: str) -> str:
         fieldnames.update(item.keys())
     fieldnames = sorted(list(fieldnames))
     
+    # Rename cost fields to include USD currency indicator
+    cost_fields = ['total_amortized_cost', 'amortized_cost', 'total_cost', 'cost']
+    fieldname_mapping = {}
+    for field in fieldnames:
+        if field in cost_fields and not field.endswith('_usd'):
+            fieldname_mapping[field] = f"{field}_usd"
+    
+    # Create new data with renamed cost fields
+    updated_data = []
+    for item in data:
+        new_item = {}
+        for key, value in item.items():
+            new_key = fieldname_mapping.get(key, key)
+            new_item[new_key] = value
+        updated_data.append(new_item)
+    
+    # Update fieldnames with renamed cost fields
+    updated_fieldnames = [fieldname_mapping.get(f, f) for f in fieldnames]
+    
     with open(file_path, 'w', newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer = csv.DictWriter(f, fieldnames=updated_fieldnames)
         writer.writeheader()
-        writer.writerows(data)
+        writer.writerows(updated_data)
     
     return file_path
 
 
 def export_to_json(data: Any, file_path: str) -> str:
     """
-    Export data to JSON file
+    Export data to JSON file with USD currency metadata
     
     Args:
         data: Data to export
@@ -180,15 +277,29 @@ def export_to_json(data: Any, file_path: str) -> str:
     Returns:
         File path where data was written
     """
+    # Wrap data with currency metadata if it's a list
+    if isinstance(data, list):
+        export_data = {
+            "currency": "USD",
+            "note": "All cost values are in USD (United States Dollars)",
+            "data": data
+        }
+    else:
+        export_data = {
+            "currency": "USD",
+            "note": "All cost values are in USD (United States Dollars)",
+            "data": data
+        }
+    
     with open(file_path, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=2, default=str)
+        json.dump(export_data, f, indent=2, default=str)
     
     return file_path
 
 
 def export_to_markdown(data: List[Dict], file_path: str, title: str = "Data Export") -> str:
     """
-    Export data to Markdown file with table format
+    Export data to Markdown file with table format and USD currency indicators
     
     Args:
         data: List of dictionaries
@@ -200,7 +311,9 @@ def export_to_markdown(data: List[Dict], file_path: str, title: str = "Data Expo
     """
     if not data:
         with open(file_path, 'w', encoding='utf-8') as f:
-            f.write(f"# {title}\n\nNo data available.\n")
+            f.write(f"# {title}\n\n")
+            f.write("**Currency:** USD (United States Dollars)\n\n")
+            f.write("No data available.\n")
         return file_path
     
     # Get all unique keys from all dictionaries
@@ -209,18 +322,39 @@ def export_to_markdown(data: List[Dict], file_path: str, title: str = "Data Expo
         fieldnames.update(item.keys())
     fieldnames = sorted(list(fieldnames))
     
+    # Rename cost fields to include USD currency indicator
+    cost_fields = ['total_amortized_cost', 'amortized_cost', 'total_cost', 'cost']
+    fieldname_mapping = {}
+    for field in fieldnames:
+        if field in cost_fields and not field.endswith('_usd'):
+            fieldname_mapping[field] = f"{field}_usd"
+    
+    # Update fieldnames with renamed cost fields
+    updated_fieldnames = [fieldname_mapping.get(f, f) for f in fieldnames]
+    
+    # Create new data with renamed cost fields
+    updated_data = []
+    for item in data:
+        new_item = {}
+        for key, value in item.items():
+            new_key = fieldname_mapping.get(key, key)
+            new_item[new_key] = value
+        updated_data.append(new_item)
+    
     with open(file_path, 'w', encoding='utf-8') as f:
         f.write(f"# {title}\n\n")
-        f.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
-        f.write(f"Total records: {len(data)}\n\n")
+        f.write("**Currency:** USD (United States Dollars)\n\n")
+        f.write(f"**Generated:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+        f.write(f"**Total records:** {len(updated_data)}\n\n")
+        f.write("**Note:** All cost values are in USD.\n\n")
         
         # Create markdown table
-        f.write("| " + " | ".join(fieldnames) + " |\n")
-        f.write("| " + " | ".join(["---"] * len(fieldnames)) + " |\n")
+        f.write("| " + " | ".join(updated_fieldnames) + " |\n")
+        f.write("| " + " | ".join(["---"] * len(updated_fieldnames)) + " |\n")
         
-        for item in data:
+        for item in updated_data:
             row = []
-            for field in fieldnames:
+            for field in updated_fieldnames:
                 value = item.get(field, "")
                 # Convert to string and escape pipe characters
                 value_str = str(value).replace("|", "\\|")

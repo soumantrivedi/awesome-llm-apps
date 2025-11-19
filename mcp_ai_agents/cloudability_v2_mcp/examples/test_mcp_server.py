@@ -21,6 +21,7 @@ sys.path.insert(0, project_root)
 
 from src.main import CloudabilityV2MCPServer
 from src.config import Config
+from src.config import Config
 
 
 async def test_list_views():
@@ -81,6 +82,7 @@ async def test_get_amortized_costs():
     
     server = CloudabilityV2MCPServer()
     result = await server.call_tool("get_amortized_costs", {
+        "view_name": Config.DEFAULT_VIEW,  # Use default view for testing
         "start_date": start_date.strftime("%Y-%m-%d"),
         "end_date": end_date.strftime("%Y-%m-%d"),
         "dimensions": ["vendor"],
@@ -116,6 +118,7 @@ async def test_get_amortized_costs_csv():
     
     server = CloudabilityV2MCPServer()
     result = await server.call_tool("get_amortized_costs", {
+        "view_name": Config.DEFAULT_VIEW,  # Use default view for testing
         "start_date": start_date.strftime("%Y-%m-%d"),
         "end_date": end_date.strftime("%Y-%m-%d"),
         "dimensions": ["vendor"],
@@ -154,6 +157,7 @@ async def test_invalid_dimension():
     
     server = CloudabilityV2MCPServer()
     result = await server.call_tool("get_amortized_costs", {
+        "view_name": Config.DEFAULT_VIEW,  # Use default view for testing
         "start_date": start_date.strftime("%Y-%m-%d"),
         "end_date": end_date.strftime("%Y-%m-%d"),
         "dimensions": ["cluster_name"],  # Invalid dimension - should be rejected
