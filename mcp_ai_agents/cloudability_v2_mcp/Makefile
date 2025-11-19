@@ -101,6 +101,6 @@ verify:
 		exit 1; \
 	fi
 	@./venv/bin/python3 -c "import sys; sys.path.insert(0, '.'); from src.main import CloudabilityV2MCPServer; print('✓ Import successful')" || (echo "✗ Import failed" && exit 1)
-	@./venv/bin/python3 -c "import sys; sys.path.insert(0, '.'); from src.main import CloudabilityV2MCPServer; server = CloudabilityV2MCPServer(); print('✓ Server initialized'); tools = server.get_tools(); print(f'✓ Found {len(tools)} tools')" || (echo "✗ Server initialization failed" && exit 1)
-	@echo "✓ Installation verified"
+	@./venv/bin/python3 -c "import sys; sys.path.insert(0, '.'); from src.framework.tool_base import get_registry; registry = get_registry(); tools = registry.list_tools(); print(f'✓ Found {len(tools)} registered tools: {', '.join(tools)}')" || (echo "✗ Tool registry check failed" && exit 1)
+	@echo "✓ Installation verified (server initialization requires credentials)"
 
