@@ -7,10 +7,15 @@ This script can be used as the command for MCP server registration
 import sys
 import os
 
-# Add src to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+# Get the directory containing this script
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-from main import main
+# Add project root to path so we can import from src
+if SCRIPT_DIR not in sys.path:
+    sys.path.insert(0, SCRIPT_DIR)
+
+# Import from src package
+from src.main import main
 import asyncio
 
 if __name__ == "__main__":

@@ -91,14 +91,33 @@ def write_mcp_json(mcp_path, data):
 
 
 def get_python_command():
-    """Get Python command path"""
-    # Check for venv first
+    """Get Python command path, creating venv if needed"""
     venv_python = Path.cwd() / "venv" / "bin" / "python3"
+    
     if venv_python.exists():
         return str(venv_python.absolute())
     
-    # Use system python3
-    return "python3"
+    # Create venv if it doesn't exist
+    print("\n⚠️  No virtual environment found. Creating one...")
+    import subprocess
+    import venv
+    
+    venv_path = Path.cwd() / "venv"
+    venv.create(venv_path, with_pip=True)
+    
+    # Install dependencies
+    print("Installing dependencies...")
+    requirements = Path.cwd() / "requirements.txt"
+    if requirements.exists():
+        subprocess.run([
+            str(venv_python),
+            "-m", "pip", "install", "-q", "-r", str(requirements)
+        ], check=True)
+        print("✓ Dependencies installed")
+    else:
+        print("⚠️  No requirements.txt found")
+    
+    return str(venv_python.absolute())
 
 
 def get_server_path():
