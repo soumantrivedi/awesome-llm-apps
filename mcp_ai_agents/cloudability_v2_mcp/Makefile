@@ -15,8 +15,13 @@ help:
 
 install:
 	@echo "Installing dependencies..."
-	@python3 -m pip install -r requirements.txt
-	@echo "✓ Dependencies installed"
+	@if [ ! -d "venv" ]; then \
+		echo "Creating virtual environment..."; \
+		python3 -m venv venv; \
+	fi
+	@echo "Installing dependencies into venv..."
+	@./venv/bin/pip install -r requirements.txt
+	@echo "✓ Dependencies installed in venv"
 
 register:
 	@echo "Registering Cloudability V2 MCP Server in Cursor IDE..."
@@ -91,7 +96,11 @@ clean:
 
 verify:
 	@echo "Verifying installation..."
-	@python3 -c "import sys; sys.path.insert(0, 'src'); from main import CloudabilityV2MCPServer; print('✓ Import successful')" || (echo "✗ Import failed" && exit 1)
-	@python3 -c "import sys; sys.path.insert(0, 'src'); from main import CloudabilityV2MCPServer; server = CloudabilityV2MCPServer(); print('✓ Server initialized'); tools = server.get_tools(); print(f'✓ Found {len(tools)} tools')" || (echo "✗ Server initialization failed" && exit 1)
+	@if [ ! -d "venv" ]; then \
+		echo "✗ Virtual environment not found. Run 'make install' first."; \
+		exit 1; \
+	fi
+	@./venv/bin/python3 -c "import sys; sys.path.insert(0, 'src'); from main import CloudabilityV2MCPServer; print('✓ Import successful')" || (echo "✗ Import failed" && exit 1)
+	@./venv/bin/python3 -c "import sys; sys.path.insert(0, 'src'); from main import CloudabilityV2MCPServer; server = CloudabilityV2MCPServer(); print('✓ Server initialized'); tools = server.get_tools(); print(f'✓ Found {len(tools)} tools')" || (echo "✗ Server initialization failed" && exit 1)
 	@echo "✓ Installation verified"
 
