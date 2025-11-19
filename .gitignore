@@ -1,0 +1,93 @@
+# Environment variables and secrets
+.env
+.env.local
+.env.*.local
+*.env
+
+# API Keys and credentials
+*_key
+*.key
+*.pem
+*.p12
+*.pfx
+credentials.json
+secrets.json
+
+# MCP Configuration (contains API keys)
+.cursor/mcp.json
+mcp.json
+**/mcp.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+cloudability/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+
+# Exported reports (may contain sensitive data)
+*.csv
+*.xlsx
+*.xls
+amortized_costs_*.csv
+cost_report_*.csv
+*_report_*.csv
+*_export_*.csv
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Project specific
+cloudability_views.json
+*.db
+*.sqlite
+*.sqlite3
+

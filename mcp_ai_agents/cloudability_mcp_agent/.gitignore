@@ -1,25 +1,63 @@
-# Virtual Environment
-venv/
-env/
-.venv/
-
 # Environment variables
 .env
+.env.local
+.env.*.local
+
+# API Keys and credentials
+*_key
+*.key
+credentials.json
+secrets.json
+
+# MCP Configuration (contains API keys)
+.cursor/mcp.json
+mcp.json
+
+# Virtual environments
+venv/
+cloudability/
+.venv/
+env/
+ENV/
 
 # Python cache
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
+*.so
 .Python
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
+# Exported reports (may contain sensitive cost data)
+*.csv
+*.xlsx
+*.xls
+amortized_costs_*.csv
+cost_report_*.csv
+*_report_*.csv
+*_export_*.csv
+tag_explorer_*.csv
+container_costs_*.csv
+anomalies_*.csv
 
-# OS
+# Logs
+*.log
+logs/
+
+# Test files
+.coverage
+.pytest_cache/
+htmlcov/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# OS files
 .DS_Store
 Thumbs.db
 
+# Project specific
+cloudability_views.json
+*.db
+*.sqlite
