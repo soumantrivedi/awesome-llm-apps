@@ -29,6 +29,16 @@ register:
 
 secrets:
 	@echo "Setting up secrets..."
+	@if [ -f ~/.cursor/mcp.json ]; then \
+		echo "Found mcp.json. Would you like to copy credentials from it? [y/N]"; \
+		read -p "> " copy_from_mcp; \
+		if [ "$$copy_from_mcp" = "y" ] || [ "$$copy_from_mcp" = "Y" ]; then \
+			echo "Copying credentials from mcp.json..."; \
+			python3 -c "import json, sys; data = json.load(open('$$HOME/.cursor/mcp.json')); env = data.get('mcpServers', {}).get('cloudability-v2', {}).get('env', {}); open('.env', 'w').write('\n'.join([f'{k}={v}' for k, v in env.items() if k != 'PYTHONUNBUFFERED']))"; \
+			echo "✓ Credentials copied from mcp.json to .env"; \
+			exit 0; \
+		fi; \
+	fi
 	@if [ ! -f .env ]; then \
 		echo "Creating .env file..."; \
 		touch .env; \

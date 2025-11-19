@@ -7,6 +7,13 @@ import asyncio
 import sys
 import os
 from datetime import datetime, timedelta
+from pathlib import Path
+
+# Load environment variables from .env if it exists
+from dotenv import load_dotenv
+env_path = Path(__file__).parent.parent / '.env'
+if env_path.exists():
+    load_dotenv(env_path)
 
 # Add project root to path so we can import from src package
 project_root = os.path.join(os.path.dirname(__file__), '..')
@@ -162,6 +169,20 @@ async def main():
     print("\n" + "=" * 80)
     print("Cloudability V2 MCP Server - Test Suite")
     print("=" * 80 + "\n")
+    
+    # Check if credentials are available
+    api_key = os.getenv("CLOUDABILITY_API_KEY")
+    public_key = os.getenv("CLOUDABILITY_PUBLIC_KEY")
+    private_key = os.getenv("CLOUDABILITY_PRIVATE_KEY")
+    
+    if not api_key and not (public_key and private_key):
+        print("⚠️  No Cloudability credentials found!")
+        print("   Set environment variables or create a .env file with:")
+        print("   - CLOUDABILITY_API_KEY (for basic auth), or")
+        print("   - CLOUDABILITY_PUBLIC_KEY and CLOUDABILITY_PRIVATE_KEY (for enhanced auth)")
+        print("\n   You can also run 'make secrets' to create a .env file")
+        print("   Or copy credentials from ~/.cursor/mcp.json to .env file")
+        sys.exit(1)
     
     try:
         await test_list_views()
