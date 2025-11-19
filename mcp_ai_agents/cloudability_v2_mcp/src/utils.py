@@ -184,3 +184,62 @@ def export_to_json(data: Any, file_path: str) -> str:
     
     return file_path
 
+
+def export_to_markdown(data: List[Dict], file_path: str, title: str = "Data Export") -> str:
+    """
+    Export data to Markdown file with table format
+    
+    Args:
+        data: List of dictionaries
+        file_path: Output file path
+        title: Title for the markdown document
+        
+    Returns:
+        File path where data was written
+    """
+    if not data:
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(f"# {title}\n\nNo data available.\n")
+        return file_path
+    
+    # Get all unique keys from all dictionaries
+    fieldnames = set()
+    for item in data:
+        fieldnames.update(item.keys())
+    fieldnames = sorted(list(fieldnames))
+    
+    with open(file_path, 'w', encoding='utf-8') as f:
+        f.write(f"# {title}\n\n")
+        f.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+        f.write(f"Total records: {len(data)}\n\n")
+        
+        # Create markdown table
+        f.write("| " + " | ".join(fieldnames) + " |\n")
+        f.write("| " + " | ".join(["---"] * len(fieldnames)) + " |\n")
+        
+        for item in data:
+            row = []
+            for field in fieldnames:
+                value = item.get(field, "")
+                # Convert to string and escape pipe characters
+                value_str = str(value).replace("|", "\\|")
+                row.append(value_str)
+            f.write("| " + " | ".join(row) + " |\n")
+    
+    return file_path
+
+
+def generate_timestamped_filename(prefix: str, extension: str) -> str:
+    """
+    Generate a filename with timestamp
+    
+    Args:
+        prefix: Filename prefix
+        extension: File extension (without dot)
+        
+    Returns:
+        Filename with timestamp
+    """
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    return f"{prefix}_{timestamp}.{extension}"
+

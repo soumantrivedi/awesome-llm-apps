@@ -5,6 +5,7 @@ Tools for listing and managing Cloudability budgets
 
 from ..framework.tool_base import get_registry
 from .base_tool import CloudabilityTool
+from ..utils import export_to_csv, export_to_json, export_to_markdown, generate_timestamped_filename
 
 registry = get_registry()
 
@@ -16,17 +17,48 @@ class ListBudgetsTool(CloudabilityTool):
         return "list_budgets"
     
     def get_description(self) -> str:
-        return "List all budgets in your Cloudability account."
+        return "List all budgets in your Cloudability account. Supports exporting to CSV, Markdown, or JSON (default) format with timestamp."
     
     def get_input_schema(self) -> dict:
         return {
             "type": "object",
-            "properties": {}
+            "properties": {
+                "export_format": {
+                    "type": "string",
+                    "enum": ["json", "csv", "markdown"],
+                    "description": "Export format (default: json)",
+                    "default": "json"
+                }
+            }
         }
     
     async def execute(self, args: dict) -> dict:
         api = self.require_api_client()
-        return api.list_budgets()
+        result = api.list_budgets()
+        
+        # Handle export if requested
+        export_format = args.get("export_format", "json")
+        if result.get("success") and result.get("budgets"):
+            budgets = result.get("budgets", [])
+            
+            if export_format == "csv":
+                file_path = generate_timestamped_filename("budgets", "csv")
+                from ..utils import export_to_csv
+                export_to_csv(budgets, file_path)
+                result["export_path"] = file_path
+                result["export_format"] = "csv"
+            elif export_format == "markdown":
+                file_path = generate_timestamped_filename("budgets", "md")
+                export_to_markdown(budgets, file_path, title="Cloudability Budgets")
+                result["export_path"] = file_path
+                result["export_format"] = "markdown"
+            else:  # json (default)
+                file_path = generate_timestamped_filename("budgets", "json")
+                export_to_json(budgets, file_path)
+                result["export_path"] = file_path
+                result["export_format"] = "json"
+        
+        return result
 
 
 # Register tool
